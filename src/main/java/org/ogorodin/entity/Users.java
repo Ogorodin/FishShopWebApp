@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class Users {
 
 	public enum ERole {
@@ -22,43 +24,45 @@ public class Users {
 	}
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private String id;
-	
-	@Column(name="usernaame")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	@Column(name = "username")
 	private String username;
-	
-	@Column(name="password")
+
+	@Column(name = "password")
 	private String password;
-	
-	@Column(name="email")
+
+	@Column(name = "email")
 	private String email;
-	
-	@Column(name="role")
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "roles")
 	private ERole role;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="user_info_id")
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_info_id")
 	private UserInfo info;
-	
-	@OneToMany(mappedBy="", cascade=CascadeType.ALL)
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Orders> orders;
 
 	public Users() {
 	}
 
-	public Users(String username, String password, String email) {
+	public Users(String username, String password, String email, ERole role) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
+		this.role = role;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public String getUsername() {
