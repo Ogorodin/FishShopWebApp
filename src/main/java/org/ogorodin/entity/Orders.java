@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Orders {
 
 	@Id
@@ -34,7 +34,7 @@ public class Orders {
 	private Users user;
 
 	@ManyToMany
-	@JoinTable(name = "products_order", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+	@JoinTable(name = "products_order", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "order_id"))
 	private List<Products> products;
 
 	public Orders() {

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +16,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "products")
@@ -34,17 +38,17 @@ public class Products {
 	private String description;
 
 	@Column(name = "type")
+	@Enumerated(EnumType.STRING)
 	private EProductType productType;
 
-	@OneToMany(mappedBy = "product", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-			CascadeType.REFRESH })
-	private List<Stock> stockData;
+	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REFRESH }, mappedBy = "product")
+	@JsonBackReference
+	private List<Stock> stock;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
-	@JoinTable(name = "products_order",
-		joinColumns = @JoinColumn(name = "product_id"),
-		inverseJoinColumns = @JoinColumn(name = "order_id"))
+	@JoinTable(name = "products_order", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private List<Orders> orders;
 
 	public Products() {
@@ -89,17 +93,17 @@ public class Products {
 	}
 
 	public List<Stock> getStock() {
-		return stockData;
+		return stock;
 	}
 
 	public void setStock(List<Stock> stockData) {
-		this.stockData = stockData;
+		this.stock = stockData;
 	}
 
 	@Override
 	public String toString() {
 		return "Products [id=" + id + ", title=" + title + ", description=" + description + ", productType="
-				+ productType + ", stockData=" + stockData + "]";
+				+ productType + ", stockData=" + stock + "]";
 	}
 
 }
