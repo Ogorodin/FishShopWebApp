@@ -37,7 +37,7 @@ public class Products {
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "type")
+	@Column(name = "the_type")
 	@Enumerated(EnumType.STRING)
 	private EProductType productType;
 
