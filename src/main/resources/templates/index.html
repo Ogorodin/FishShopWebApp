@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fish Shop</title>
+<!-- Latest compiled and minified CSS - BOOTSTRAP -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head>
+<style>
+.img {
+	position: relative;
+	float: left;
+	width: 100px;
+	height: 100px;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+</style>
+<body>
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/home"><strong>FISH</strong> Shop</a>
+			</div>
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">Login</a></li>
+					<li><a href="#">Signup</a></li>
+				</ul>
+				<form class="navbar-form navbar-right" role="search">
+					<div class="form-group">
+						<input type="text" placeholder="Enter Keyword Here ..."
+							class="form-control">
+					</div>
+					&nbsp;
+					<button type="submit" class="btn btn-primary">Search</button>
+				</form>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+
+		<div class="row">
+			<!-- Organized products, menu on the left -->
+			<div class="col-md-3">
+				<div th:if="${organizedProducts.fishProducts.size()>0}">
+					<a href="#" class="list-group-item active">Fish</a>
+					<ul class="list-group">
+						<li th:inline="text" class="list-group-item">Freshwater <span
+							class="label label-primary pull-right">[[${organizedProducts.numOfFreshWaterFish}]]</span>
+						</li>
+						<li th:inline="text" class="list-group-item">Saltwater <span
+							class="label label-success pull-right">[[${organizedProducts.numOfSaltWaterFish}]]</span>
+						</li>
+						<li th:inline="text" class="list-group-item">Crabs<span
+							class="label label-danger pull-right">[[${organizedProducts.numOfCrabs}]]</span>
+						</li>
+						<li th:inline="text" class="list-group-item">Pond <span
+							class="label label-danger pull-right">[[${organizedProducts.numOfPondFish}]]</span>
+						</li>
+					</ul>
+				</div>
+				<div th:if="${organizedProducts.plantProducts.size()>0}">
+					<a href="#" class="list-group-item active list-group-item-success">Plants
+					</a>
+					<ul class="list-group">
+						<li th:inline="text" class="list-group-item">Freshwater <span
+							class="label label-danger pull-right">[[${organizedProducts.numOfFreshWaterPlants}]]</span>
+						</li>
+						<li class="list-group-item">Pond <span
+							class="label label-success pull-right">[[${organizedProducts.numOfPondPlants}]]</span>
+						</li>
+					</ul>
+				</div>
+				<div th:if="${organizedProducts.otherProducts.size()>0}">
+					<a href="#" class="list-group-item active">Other </a>
+					<ul class="list-group">
+						<li th:inline="text" class="list-group-item">Tanks <span
+							class="label label-warning pull-right">[[${organizedProducts.numOfTanks}]]</span>
+						</li>
+						<li th:inline="text" class="list-group-item">Food <span
+							class="label label-success pull-right">[[${organizedProducts.numOfFoodItems}]]</span>
+						</li>
+						<li th:inline="text" class="list-group-item">Filters <span
+							class="label label-success pull-right">[[${organizedProducts.numOfFilterItems}]]</span>
+						</li>
+						<li th:inline="text" class="list-group-item">CO2 <span
+							class="label label-success pull-right">[[${organizedProducts.numOfCo2Items}]]</span>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+
+
+			<div class="col-md-9">
+				<!-- Fish row begins -->
+				<div>
+					<ol class="breadcrumb">
+						<li><a href="#">Home</a></li>
+						<li class="active">Fish</li>
+					</ol>
+				</div>
+				<div class="row">
+					<div th:each="product : ${organizedProducts.fishProducts}"
+						class="col-md-4 text-center col-sm-6 col-xs-6">
+						<div class="thumbnail product-box">
+
+							<img
+								th:src="@{/photos/{imgName}(imgName=${product.title+'.jpg'})}"
+								alt="${product.title}" />
+							<div class="caption">
+								<h3>
+									<a th:text="${product.title}" href="#">Product name</a>
+								</h3>
+								<p>Price goes here</p>
+								<p>
+									<a href="#" class="btn btn-success" role="button">Add To
+										Cart</a> <a href="#" class="btn btn-primary" role="button">See
+										Details</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- pagination row -->
+				<div class="row">
+					<ul class="pagination alg-right-pad">
+						<li><a href="#">&laquo;</a></li>
+						<li><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#">&raquo;</a></li>
+					</ul>
+				</div>
+				<!-- Fish row ends here -->
+				<!-- Plant row begins here -->
+				<div>
+					<ol class="breadcrumb">
+						<li><a href="#">Home</a></li>
+						<li class="active">Plants</li>
+					</ol>
+				</div>
+				<div class="row">
+					<div th:each=" product : ${organizedProducts.plantProducts}"
+						class="col-md-4 text-center col-sm-6 col-xs-6">
+						<div class="thumbnail product-box">
+							<img
+								th:src="@{/photos/{imgName}(imgName=${product.title+'.jpg'})}"
+								alt="${product.title}" />
+							<div class="caption">
+								<h3>
+									<a href="#">Product name</a>
+								</h3>
+								<p>
+									Price : <strong>$$$</strong>
+								</p>
+								<p>
+									<a href="#" class="btn btn-success" role="button">Add To
+										Cart</a> <a href="#" class="btn btn-primary" role="button">See
+										Details</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- pagination row -->
+				<div class="row">
+					<ul class="pagination alg-right-pad">
+						<li><a href="#">&laquo;</a></li>
+						<li><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#">&raquo;</a></li>
+					</ul>
+				</div>
+				<!-- Plant row ends here -->
+				<!-- Other products row start here -->
+				<div>
+					<ol class="breadcrumb">
+						<li><a href="#">Home</a></li>
+						<li class="active">Other</li>
+					</ol>
+				</div>
+				<div class="row">
+					<div th:each=" product : ${organizedProducts.otherProducts}"
+						class="col-md-4 text-center col-sm-6 col-xs-6">
+						<div class="thumbnail product-box">
+							<img
+								th:src="@{/photos/{imgName}(imgName=${product.title+'.jpg'})}"
+								alt="${product.title}" />
+							<div class="caption">
+								<h3>
+									<a href="#">Product name</a>
+								</h3>
+								<p>
+									Price : <strong>$$$</strong>
+								</p>
+								<p>
+									<a href="#" class="btn btn-success" role="button">Add To
+										Cart</a> <a href="#" class="btn btn-primary" role="button">See
+										Details</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- pagination row -->
+				<div class="row">
+					<ul class="pagination alg-right-pad">
+						<li><a href="#">&laquo;</a></li>
+						<li><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#">&raquo;</a></li>
+					</ul>
+				</div>
+				<!-- Other products row ends here -->
+			</div>
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+</body>
+</html>

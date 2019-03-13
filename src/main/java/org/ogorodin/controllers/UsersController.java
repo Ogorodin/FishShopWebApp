@@ -45,14 +45,4 @@ public class UsersController {
 			return false;
 	}
 
-	@DeleteMapping("/users/{userId}")
-	public boolean deleteUser(@PathVariable String userId) {
-		if (_usersService.findUserById(Integer.parseInt(userId)).isPresent()) {
-			_usersService.deleteUserById(Integer.parseInt(userId));
-			return true;
-		} else
-			return false;
-
-	}
-
 }

@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class Products {
 
 	public enum EProductType {
-		FISH, PLANT, CRAB, AQUARIUM, FILTER, CO2, FOOD
+		FW_FISH, SW_FISH, P_FISH, CRAB_FISH, FW_PLANT, P_PLANT, TANK, FILTER, CO2, FOOD
 	}
 
 	@Id
@@ -37,7 +37,7 @@ public class Products {
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "type")
+	@Column(name = "the_type")
 	@Enumerated(EnumType.STRING)
 	private EProductType productType;
 
