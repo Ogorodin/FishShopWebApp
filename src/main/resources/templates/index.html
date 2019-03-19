@@ -3,9 +3,8 @@
 <head>
 <meta charset="utf-8">
 <title>Fish Shop</title>
-<!-- Latest compiled and minified CSS - BOOTSTRAP -->
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <style>
 .img {
@@ -97,7 +96,6 @@
 				</div>
 			</div>
 
-
 			<div class="col-md-9">
 				<!-- Fish row begins -->
 				<div>
@@ -110,7 +108,6 @@
 					<div th:each="product : ${organizedProducts.fishProducts}"
 						class="col-md-4 text-center col-sm-6 col-xs-6">
 						<div class="thumbnail product-box">
-
 							<img
 								th:src="@{/photos/{imgName}(imgName=${product.title+'.jpg'})}"
 								alt="${product.title}" />
@@ -129,15 +126,11 @@
 					</div>
 				</div>
 				<!-- pagination row -->
-				<div class="row">
+				<div th:with="pages=${maxFishes}" class="row">
 					<ul class="pagination alg-right-pad">
-						<li><a href="#">&laquo;</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">&raquo;</a></li>
+						<li th:each="i : ${#numbers.sequence(1, pages)}" class="nav-item">
+							<a th:href="@{/home}" th:text="${i}" class="nav-link"></a>
+						</li>
 					</ul>
 				</div>
 				<!-- Fish row ends here -->
@@ -172,15 +165,11 @@
 					</div>
 				</div>
 				<!-- pagination row -->
-				<div class="row">
+				<div th:with="pages=${maxPlants}" class="row">
 					<ul class="pagination alg-right-pad">
-						<li><a href="#">&laquo;</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">&raquo;</a></li>
+						<li th:each="i : ${#numbers.sequence(1, pages)}" class="nav-item">
+							<a th:href="@{/home}" th:text="${i}" class="nav-link"></a>
+						</li>
 					</ul>
 				</div>
 				<!-- Plant row ends here -->
@@ -215,15 +204,11 @@
 					</div>
 				</div>
 				<!-- pagination row -->
-				<div class="row">
+				<div th:with="pages=${maxOther}" class="row">
 					<ul class="pagination alg-right-pad">
-						<li><a href="#">&laquo;</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">&raquo;</a></li>
+						<li th:each="i : ${#numbers.sequence(1, pages)}" class="nav-item">
+							<a th:href="@{/home}" th:text="${i}" class="nav-link"></a>
+						</li>
 					</ul>
 				</div>
 				<!-- Other products row ends here -->

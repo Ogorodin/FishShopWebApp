@@ -1,9 +1,14 @@
 package org.ogorodin.entity.helpers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.ogorodin.entity.Products;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 public class ProductsOrganizer {
 
@@ -79,6 +84,26 @@ public class ProductsOrganizer {
 				break;
 			}
 		}
+	}
+	
+	// PAGINATION // NOT DONE // RESEARCH
+	public Page<Products> findPaginated(Pageable pageable, List<Products> productsList) {
+		int pageSize = pageable.getPageSize();
+		int currentPage = pageable.getPageNumber();
+		int startItem = currentPage * pageSize;
+		List<Products> list;
+		
+
+		if (productsList.size() < startItem) {
+			list = Collections.emptyList();
+		} else {
+			int toIndex = Math.min(startItem + pageSize, productsList.size());
+			list = productsList.subList(startItem, toIndex);
+		}
+
+		Page<Products> productPage = new PageImpl<Products>(list, PageRequest.of(currentPage, pageSize), productsList.size());
+
+		return productPage;
 	}
 
 }
