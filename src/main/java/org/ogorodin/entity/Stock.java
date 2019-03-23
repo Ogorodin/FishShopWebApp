@@ -33,7 +33,6 @@ public class Stock {
 
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinColumn(name = "product_id")
-	@JsonManagedReference
 	private Products product;
 
 	public Stock() {

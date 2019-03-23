@@ -13,6 +13,8 @@ public interface IProductsService {
 	public Optional<Products> findById(Integer productId);
 
 	public boolean insertOrUpdateProduct(Products product);
+	
+	public Iterable<Products> getProductsInfoForTheHomePage();
 
 
 

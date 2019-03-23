@@ -23,7 +23,7 @@ public class HomeController {
 	public ModelAndView ModelAndView() {
 		ModelAndView modelAndView = new ModelAndView();
 		Iterable<Products> productsList = _productsService.getAllProducts();
-		modelAndView.addObject("product_list", productsList);
+		Iterable<Products> productListForHomePage = _productsService.getProductsInfoForTheHomePage();
 
 		_organizedProducts = new ProductsOrganizer(productsList);
 		modelAndView.addObject("organizedProducts", _organizedProducts);
@@ -41,7 +41,6 @@ public class HomeController {
 		modelAndView.addObject("maxFishes", fishPagedList.getPageCount());
 		modelAndView.addObject("maxPlants", plantsPagedList.getPageCount());
 		modelAndView.addObject("maxOther", otherPagedList.getPageCount());
-		
 
 		modelAndView.setViewName("index");
 		return modelAndView;
