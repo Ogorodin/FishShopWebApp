@@ -3,6 +3,8 @@ package org.ogorodin.controllers;
 import java.util.List;
 
 import org.ogorodin.entity.Products;
+import org.ogorodin.entity.helpers.ProductForHomeView;
+import org.ogorodin.entity.helpers.IProductHomePageSummary;
 import org.ogorodin.entity.helpers.ProductsOrganizer;
 import org.ogorodin.services.web.IProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +24,20 @@ public class HomeController {
 	@GetMapping({ "", "/", "/index", "/home" })
 	public ModelAndView ModelAndView() {
 		ModelAndView modelAndView = new ModelAndView();
-		Iterable<Products> productsList = _productsService.getAllProducts();
-		Iterable<Products> productListForHomePage = _productsService.getProductsInfoForTheHomePage();
 
-		_organizedProducts = new ProductsOrganizer(productsList);
+		Iterable<IProductHomePageSummary> productListForHomePage = _productsService.getProductsInfoForTheHomePage();
+		_organizedProducts = new ProductsOrganizer(productListForHomePage);
 		modelAndView.addObject("organizedProducts", _organizedProducts);
 
 		// pagination part // NOT CLOSE TO BE DONE...
-		PagedListHolder<Products> fishPagedList = new PagedListHolder<>(
-				(List<Products>) _organizedProducts.fishProducts);
+		PagedListHolder<ProductForHomeView> fishPagedList = new PagedListHolder<>(
+				(List<ProductForHomeView>) _organizedProducts.fishProducts);
 		fishPagedList.setPageSize(3);
-		PagedListHolder<Products> plantsPagedList = new PagedListHolder<>(
-				(List<Products>) _organizedProducts.plantProducts);
+		PagedListHolder<ProductForHomeView> plantsPagedList = new PagedListHolder<>(
+				(List<ProductForHomeView>) _organizedProducts.plantProducts);
 		plantsPagedList.setPageSize(3);
-		PagedListHolder<Products> otherPagedList = new PagedListHolder<>(
-				(List<Products>) _organizedProducts.otherProducts);
+		PagedListHolder<ProductForHomeView> otherPagedList = new PagedListHolder<>(
+				(List<ProductForHomeView>) _organizedProducts.otherProducts);
 		otherPagedList.setPageSize(3);
 		modelAndView.addObject("maxFishes", fishPagedList.getPageCount());
 		modelAndView.addObject("maxPlants", plantsPagedList.getPageCount());

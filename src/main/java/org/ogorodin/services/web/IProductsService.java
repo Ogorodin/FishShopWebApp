@@ -3,6 +3,8 @@ package org.ogorodin.services.web;
 import java.util.Optional;
 
 import org.ogorodin.entity.Products;
+import org.ogorodin.entity.helpers.ProductForHomeView;
+import org.ogorodin.entity.helpers.IProductHomePageSummary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,7 +16,7 @@ public interface IProductsService {
 
 	public boolean insertOrUpdateProduct(Products product);
 	
-	public Iterable<Products> getProductsInfoForTheHomePage();
+	public Iterable<IProductHomePageSummary> getProductsInfoForTheHomePage();
 
 
 

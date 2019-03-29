@@ -3,6 +3,7 @@ package org.ogorodin.services.web;
 import java.util.Optional;
 
 import org.ogorodin.entity.Products;
+import org.ogorodin.entity.helpers.IProductHomePageSummary;
 import org.ogorodin.repository.IProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class ProductsService implements IProductsService {
 	}
 
 	@Override
-	public Iterable<Products> getProductsInfoForTheHomePage() {
+	public Iterable<IProductHomePageSummary> getProductsInfoForTheHomePage() {
 		return _repository.getProductsInfoForTheHomePage();
 	}
 

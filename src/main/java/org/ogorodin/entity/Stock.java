@@ -4,20 +4,36 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
+
+import org.ogorodin.entity.Products.EProductType;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "stock")
+@SqlResultSetMapping(
+		name="ProductForHomeViewMapping",
+		classes={
+		@ConstructorResult(
+		targetClass=org.ogorodin.entity.helpers.ProductForHomeView.class,
+		columns={
+		@ColumnResult(name="id", type=Integer.class),
+		@ColumnResult(name="title", type=String.class),
+		@ColumnResult(name="productType", type=EProductType.class),
+		@ColumnResult(name="price", type=Long.class),
+		@ColumnResult(name="quantity", type=String.class)
+		})})
 public class Stock {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
