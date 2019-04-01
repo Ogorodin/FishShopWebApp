@@ -12,11 +12,11 @@ import org.springframework.data.domain.Pageable;
 
 public class ProductsOrganizer {
 
-	private Iterable<Products> _allProducts;
+	private List<ProductForHomeView> _productsForHomeView = new ArrayList<>();
 
-	public List<Products> fishProducts;
-	public List<Products> plantProducts;
-	public List<Products> otherProducts;
+	public List<ProductForHomeView> fishProducts;
+	public List<ProductForHomeView> plantProducts;
+	public List<ProductForHomeView> otherProducts;
 
 	public int numOfFreshWaterFish;
 	public int numOfSaltWaterFish;
@@ -31,16 +31,31 @@ public class ProductsOrganizer {
 	public int numOfFoodItems;
 	public int numOfFilterItems;
 
-	public ProductsOrganizer(Iterable<Products> allProducts) {
-		this._allProducts = allProducts;
+	public ProductsOrganizer(Iterable<IProductHomePageSummary> products) {
+		convertToProductForHomeView(products);
+
 		fishProducts = new ArrayList<>();
 		plantProducts = new ArrayList<>();
 		otherProducts = new ArrayList<>();
 		organizeProductsInCategories();
+		
+	}	
+
+	public List<ProductForHomeView> get_productsForHomeView() {
+		return _productsForHomeView;
+	}
+
+	// convenience method for converting IProductHomePageSummary to
+	// ProductForHomeView
+	public void convertToProductForHomeView(Iterable<IProductHomePageSummary> products) {
+		for (IProductHomePageSummary p : products) {
+			_productsForHomeView.add(
+					new ProductForHomeView(p.getId(), p.getTitle(), p.getProductType(), p.getPrice(), p.getQuantity()));
+		}
 	}
 
 	public void organizeProductsInCategories() {
-		for (Products product : _allProducts) {
+		for (ProductForHomeView product : _productsForHomeView) {
 			switch (product.getProductType()) {
 			case FW_FISH:
 				fishProducts.add(product);
@@ -85,14 +100,13 @@ public class ProductsOrganizer {
 			}
 		}
 	}
-	
+
 	// PAGINATION // NOT DONE // RESEARCH
 	public Page<Products> findPaginated(Pageable pageable, List<Products> productsList) {
 		int pageSize = pageable.getPageSize();
 		int currentPage = pageable.getPageNumber();
 		int startItem = currentPage * pageSize;
 		List<Products> list;
-		
 
 		if (productsList.size() < startItem) {
 			list = Collections.emptyList();
@@ -101,7 +115,8 @@ public class ProductsOrganizer {
 			list = productsList.subList(startItem, toIndex);
 		}
 
-		Page<Products> productPage = new PageImpl<Products>(list, PageRequest.of(currentPage, pageSize), productsList.size());
+		Page<Products> productPage = new PageImpl<Products>(list, PageRequest.of(currentPage, pageSize),
+				productsList.size());
 
 		return productPage;
 	}
