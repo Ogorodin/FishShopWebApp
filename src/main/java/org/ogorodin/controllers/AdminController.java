@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.ogorodin.entity.helpers.Converter;
 import org.ogorodin.entity.helpers.EmployeeForAdminView;
+import org.ogorodin.entity.helpers.ProductForAdminView;
+import org.ogorodin.services.web.IProductsService;
 import org.ogorodin.services.web.IUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,14 +19,19 @@ public class AdminController {
 
 	@Autowired
 	private IUsersService _usersService;
+	@Autowired
+	private IProductsService _productsService;
 
 	@GetMapping({ "", "/", "/index" })
 	public ModelAndView showAdminHome() {
 		ModelAndView modelAndView = new ModelAndView("admin/index.html");
 		Converter converter = new Converter();
-		List<EmployeeForAdminView> listOfEmployees =
-				converter.convertToEmployeeForAdminView(_usersService.getEmployeeDetailsForAdminView());
+		List<EmployeeForAdminView> listOfEmployees = converter
+				.convertToEmployeeForAdminView(_usersService.getEmployeeDetailsForAdminView());
 		modelAndView.addObject("empDetailsList", listOfEmployees);
+		List<ProductForAdminView> listOfProducts = converter
+				.convertToProductForAdminView(_productsService.getProductDetailsForAdminView());
+		modelAndView.addObject("productDetailsList", listOfProducts);
 		return modelAndView;
 	}
 
