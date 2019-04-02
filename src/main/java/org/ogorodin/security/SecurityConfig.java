@@ -16,13 +16,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication()
-			.withUser("pera").password(passwordEncoder().encode("pera123")).roles("USER").and()
-			.withUser("mika").password(passwordEncoder().encode("mika123")).roles("ADMIN");
+			.withUser("customer").password(passwordEncoder().encode("customer")).roles("CUSTOMER").and()
+			.withUser("admin").password(passwordEncoder().encode("admin123")).roles("ADMIN").and()
+			.withUser("employee").password(passwordEncoder().encode("emp123")).roles("EMPLOYEE");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().anyRequest().authenticated().and().httpBasic();
+		http.authorizeRequests()
+			.antMatchers("/").permitAll()
+			//.antMatchers("").authenticated()
+			.antMatchers("/admin/**").hasRole("ADMIN")
+			.antMatchers("/employee/**").hasAnyRole("EMPLOYEE", "ADMIN")
+		.and().httpBasic();
 	}
 
 	@Bean
