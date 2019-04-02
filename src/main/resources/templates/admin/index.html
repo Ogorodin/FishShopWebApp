@@ -21,8 +21,40 @@
 		<div class="row">
 
 			<div class="col-md-3">
+				<button type="button" class="btn btn-primary btn-lg btn-block">Employees</button>
+				<br>
+				<button type="button" class="btn btn-primary btn-lg btn-block">Products</button>
+				<br>
+				<button type="button" class="btn btn-primary btn-lg btn-block">Customers</button>
+			</div>
+			<div class="col-md-9">
+				<p>Only Administrators can see this page</p><button>Add</button>
 
-				<p>Only Administrators can see this page</p>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">First name</th>
+							<th scope="col">Last name</th>
+							<th scope="col">Email</th>
+							<th scope="col">Username</th>
+							<th scope="col">Info</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td>Mark</td>
+							<td>Otto</td>
+							<td>email@foo.com</td>
+							<td>Klipeta</td>
+							<td><a>Details</a></td>
+							<td><button>Delete</button> |
+								<button>Edit</button></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
