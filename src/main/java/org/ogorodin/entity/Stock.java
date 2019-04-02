@@ -17,8 +17,6 @@ import javax.persistence.Table;
 
 import org.ogorodin.entity.Products.EProductType;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 @Table(name = "stock")
 @SqlResultSetMapping(

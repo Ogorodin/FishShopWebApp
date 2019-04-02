@@ -37,8 +37,4 @@ public class ProductsService implements IProductsService {
 		return _repository.getProductsInfoForTheHomePage();
 	}
 
-
-
-
-
 }

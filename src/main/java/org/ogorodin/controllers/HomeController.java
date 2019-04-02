@@ -2,7 +2,6 @@ package org.ogorodin.controllers;
 
 import java.util.List;
 
-import org.ogorodin.entity.Products;
 import org.ogorodin.entity.helpers.ProductForHomeView;
 import org.ogorodin.entity.helpers.IProductHomePageSummary;
 import org.ogorodin.entity.helpers.ProductsOrganizer;
