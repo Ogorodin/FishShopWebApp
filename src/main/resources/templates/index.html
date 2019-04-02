@@ -1,5 +1,9 @@
 ﻿<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	lang="eng">
+
 <head>
 <meta charset="utf-8">
 <title>Fish Shop</title>
@@ -13,8 +17,8 @@
 			<div class="navbar-header">
 				<a class="navbar-brand" href="/home"><strong>FISH</strong> Shop</a>
 			</div>
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1">
+			<div sec:authorize="!isAuthenticated()"
+				class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 
 				<ul class="nav navbar-nav navbar-right">
