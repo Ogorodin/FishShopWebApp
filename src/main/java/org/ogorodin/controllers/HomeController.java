@@ -2,8 +2,9 @@ package org.ogorodin.controllers;
 
 import java.util.List;
 
-import org.ogorodin.entity.helpers.ProductForHomeView;
+import org.ogorodin.entity.helpers.Converter;
 import org.ogorodin.entity.helpers.IProductHomePageSummary;
+import org.ogorodin.entity.helpers.ProductForHomeView;
 import org.ogorodin.entity.helpers.ProductsOrganizer;
 import org.ogorodin.services.web.IProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,25 +19,26 @@ public class HomeController {
 	@Autowired
 	private IProductsService _productsService;
 
-	private ProductsOrganizer _organizedProducts;
-
 	@GetMapping({ "", "/", "/index", "/home" })
 	public ModelAndView ModelAndView() {
 		ModelAndView modelAndView = new ModelAndView();
+		
+		Converter converter = new Converter();
+		List<ProductForHomeView> listOfProducts = converter
+				.convertToProductForHomeView(_productsService.getProductsInfoForTheHomePage());
 
-		Iterable<IProductHomePageSummary> productListForHomePage = _productsService.getProductsInfoForTheHomePage();
-		_organizedProducts = new ProductsOrganizer(productListForHomePage);
-		modelAndView.addObject("organizedProducts", _organizedProducts);
+		ProductsOrganizer organizedProducts = new ProductsOrganizer(listOfProducts);
+		modelAndView.addObject("organizedProducts", organizedProducts);
 
 		// pagination part // NOT CLOSE TO BE DONE...
 		PagedListHolder<ProductForHomeView> fishPagedList = new PagedListHolder<>(
-				(List<ProductForHomeView>) _organizedProducts.fishProducts);
+				(List<ProductForHomeView>) organizedProducts.fishProducts);
 		fishPagedList.setPageSize(3);
 		PagedListHolder<ProductForHomeView> plantsPagedList = new PagedListHolder<>(
-				(List<ProductForHomeView>) _organizedProducts.plantProducts);
+				(List<ProductForHomeView>) organizedProducts.plantProducts);
 		plantsPagedList.setPageSize(3);
 		PagedListHolder<ProductForHomeView> otherPagedList = new PagedListHolder<>(
-				(List<ProductForHomeView>) _organizedProducts.otherProducts);
+				(List<ProductForHomeView>) organizedProducts.otherProducts);
 		otherPagedList.setPageSize(3);
 		modelAndView.addObject("maxFishes", fishPagedList.getPageCount());
 		modelAndView.addObject("maxPlants", plantsPagedList.getPageCount());

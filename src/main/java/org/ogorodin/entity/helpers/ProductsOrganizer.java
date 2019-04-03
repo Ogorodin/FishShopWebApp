@@ -31,27 +31,16 @@ public class ProductsOrganizer {
 	public int numOfFoodItems;
 	public int numOfFilterItems;
 
-	public ProductsOrganizer(Iterable<IProductHomePageSummary> products) {
-		convertToProductForHomeView(products);
-
+	public ProductsOrganizer(List<ProductForHomeView> products) {
+		this._productsForHomeView = products;
 		fishProducts = new ArrayList<>();
 		plantProducts = new ArrayList<>();
 		otherProducts = new ArrayList<>();
 		organizeProductsInCategories();
-		
-	}	
+	}
 
 	public List<ProductForHomeView> get_productsForHomeView() {
 		return _productsForHomeView;
-	}
-
-	// convenience method for converting IProductHomePageSummary to
-	// ProductForHomeView
-	public void convertToProductForHomeView(Iterable<IProductHomePageSummary> products) {
-		for (IProductHomePageSummary p : products) {
-			_productsForHomeView.add(
-					new ProductForHomeView(p.getId(), p.getTitle(), p.getProductType(), p.getPrice(), p.getQuantity()));
-		}
 	}
 
 	public void organizeProductsInCategories() {

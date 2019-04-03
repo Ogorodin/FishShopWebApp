@@ -35,7 +35,7 @@ public class ProductsService implements IProductsService {
 
 	@Override
 	public Iterable<IProductHomePageSummary> getProductsInfoForTheHomePage() {
-		return _repository.getProductsInfoForTheHomePage();
+		return _repository.getProductsForTheHomePage();
 	}
 
 	@Override
