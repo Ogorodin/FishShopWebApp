@@ -11,18 +11,29 @@
 		document.getElementById('employeesDiv').style.display = "block";
 		document.getElementById('productsDiv').style.display = "none";
 		document.getElementById('customersDiv').style.display = "none";
+		document.getElementById('insertEmpForm').style.display = "none";
 	}
 	function showProducts() {
 		document.getElementById('productsDiv').style.display = "block";
 		document.getElementById('customersDiv').style.display = "none";
 		document.getElementById('employeesDiv').style.display = "none";
+		document.getElementById('insertEmpForm').style.display = "none";
 	}
 	function showCustomers() {
 		document.getElementById('customersDiv').style.display = "block";
 		document.getElementById('employeesDiv').style.display = "none";
 		document.getElementById('productsDiv').style.display = "none";
+		document.getElementById('insertEmpForm').style.display = "none";
+	}
+	function showForm() {
+		document.getElementById('insertEmpForm').style.display = "block";
+		document.getElementById('employeesDiv').style.display = "none";
 	}
 </script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <body>
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="container-fluid">
@@ -49,8 +60,43 @@
 			</div>
 			<div class="col-md-9">
 				<p>Only Administrators can see this page</p>
+				<!-- This <div> will show when the Add button is clicked -->
+				<!-- UNDER CONSTRUCTION -->
+				<div id="insertEmpForm" style="display: none">
+					<form action="#" th:action="@{/admin/processForm}" th:object="${employeeDetailsObj}" method="POST">
+						<div class="form-group">
+							<label>First name:</label>
+							<input type="text" th:field="*{firstName}" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>Last name:</label>
+							<input type="text" th:field="*{lastName}" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>Address:</label>
+							<input type="text" th:field="*{address}" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>Email:</label>
+							<input type="text" th:field="*{email}" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>Username:</label>
+							<input type="text" th:field="*{username}" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>Password:</label>
+							<input type="text" th:field="*{password}" class="form-control">
+						</div>
+						<button type="submit" class="btn btn-default">Submit</button>
+						<button type="submit" class="btn btn-default">Cancel</button>
+					</form>
+					<!--  -->
+				</div>
 				<div id="employeesDiv" style="display: none">
-					<button type="button" class="btn btn-success">Add</button>
+					<!-- UNDER CONSTRUCTION -->
+					<button type="button" class="btn btn-success" onClick="showForm()">Add</button>
+					<!--  -->
 
 					<table class="table table-striped">
 						<thead>
@@ -96,7 +142,8 @@
 						<tbody>
 							<tr th:each="product : ${productDetailsList}">
 								<td scope="row" th:text="${product.id}">ID</td>
-								<td scope="row" th:text="${product.productType}">product type</td>
+								<td scope="row" th:text="${product.productType}">product
+									type</td>
 								<td scope="row" th:text="${product.title}">title</td>
 								<td scope="row" th:text="${product.quantity}">q</td>
 								<td scope="row" th:text="${product.price}">$</td>

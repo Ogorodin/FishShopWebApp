@@ -1,4 +1,4 @@
-package org.ogorodin.controllers;
+package org.ogorodin.api;
 
 import java.util.Optional;
 
