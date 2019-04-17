@@ -42,4 +42,10 @@ public class UsersService implements IUsersService {
 		return _repository.getEmployeeDetailsForAdminView();
 	}
 
+	@Override
+	public void insertEmployeeWithDetails(String firstName, String lastName, String address, String username,
+			String password, String email) {
+		_repository.insertEmployeeWithDetails(firstName, lastName, address, username, password, email);
+	}
+
 }

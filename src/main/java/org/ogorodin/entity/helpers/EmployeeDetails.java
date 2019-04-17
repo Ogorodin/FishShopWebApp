@@ -70,4 +70,10 @@ public class EmployeeDetails {
 		this.password = password;
 	}
 
+	@Override
+	public String toString() {
+		return "EmployeeDetails [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address
+				+ ", email=" + email + ", username=" + username + ", password=" + password + "]";
+	}
+
 }

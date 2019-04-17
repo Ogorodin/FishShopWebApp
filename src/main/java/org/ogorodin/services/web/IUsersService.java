@@ -16,4 +16,7 @@ public interface IUsersService {
 	public void deleteUserById(Integer id);
 	
 	public Iterable<IEmployeeDetailsForAdmin> getEmployeeDetailsForAdminView();
+	
+	public void insertEmployeeWithDetails(String firstName, String lastName, String address, String username, String password, String email);
+	
 }

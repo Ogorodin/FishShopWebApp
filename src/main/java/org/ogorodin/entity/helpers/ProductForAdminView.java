@@ -36,4 +36,24 @@ public class ProductForAdminView {
 		return price;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 }

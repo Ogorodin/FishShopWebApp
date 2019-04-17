@@ -29,6 +29,11 @@
 		document.getElementById('insertEmpForm').style.display = "block";
 		document.getElementById('employeesDiv').style.display = "none";
 	}
+	// UNUSED
+	function deleteEmployee(employeeId){
+		console.log("dufakame" + employeeId);
+		document.getElementById('deleteModal').style.display = "block";
+	}
 </script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -63,30 +68,31 @@
 				<!-- This <div> will show when the Add button is clicked -->
 				<!-- UNDER CONSTRUCTION -->
 				<div id="insertEmpForm" style="display: none">
-					<form action="#" th:action="@{/admin/processForm}" th:object="${employeeDetailsObj}" method="POST">
+					<form action="#" th:action="@{/admin/processForm}"
+						th:object="${employeeDetailsObj}" method="POST">
 						<div class="form-group">
-							<label>First name:</label>
-							<input type="text" th:field="*{firstName}" class="form-control">
+							<label>First name:</label> <input type="text"
+								th:field="*{firstName}" class="form-control">
 						</div>
 						<div class="form-group">
-							<label>Last name:</label>
-							<input type="text" th:field="*{lastName}" class="form-control">
+							<label>Last name:</label> <input type="text"
+								th:field="*{lastName}" class="form-control">
 						</div>
 						<div class="form-group">
-							<label>Address:</label>
-							<input type="text" th:field="*{address}" class="form-control">
+							<label>Address:</label> <input type="text" th:field="*{address}"
+								class="form-control">
 						</div>
 						<div class="form-group">
-							<label>Email:</label>
-							<input type="text" th:field="*{email}" class="form-control">
+							<label>Email:</label> <input type="text" th:field="*{email}"
+								class="form-control">
 						</div>
 						<div class="form-group">
-							<label>Username:</label>
-							<input type="text" th:field="*{username}" class="form-control">
+							<label>Username:</label> <input type="text"
+								th:field="*{username}" class="form-control">
 						</div>
 						<div class="form-group">
-							<label>Password:</label>
-							<input type="text" th:field="*{password}" class="form-control">
+							<label>Password:</label> <input type="text"
+								th:field="*{password}" class="form-control">
 						</div>
 						<button type="submit" class="btn btn-default">Submit</button>
 						<button type="submit" class="btn btn-default">Cancel</button>
@@ -96,8 +102,6 @@
 				<div id="employeesDiv" style="display: none">
 					<!-- UNDER CONSTRUCTION -->
 					<button type="button" class="btn btn-success" onClick="showForm()">Add</button>
-					<!--  -->
-
 					<table class="table table-striped">
 						<thead>
 							<tr>
@@ -110,6 +114,7 @@
 								<th scope="col">Action</th>
 							</tr>
 						</thead>
+
 						<tbody>
 							<tr th:each="employee : ${empDetailsList}">
 								<td scope="row" th:text="${employee.id}">ID</td>
@@ -119,9 +124,34 @@
 								<td scope="row" th:text="${employee.username}">user name</td>
 								<td><a>Details</a></td>
 								<td>
-									<button type="button" class="btn btn-info">Delete</button> |
-									<button type="button" class="btn btn-info">Edit</button>
+									<button type="button" class="btn btn-info" data-toggle="modal"
+										th:attr="data-target='#modal-warning'+${employee.id}">Delete</button>
+									<button onClick="@{/edit}" type="button" class="btn btn-info">Edit</button>
+									<!-- MODAL -->
+									<div class="modal fade" th:id="modal-warning+${employee.id}"
+										tabindex="-1" role="dialog" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">Caution!</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">Are you sure? This can't be
+													undone.</div>
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Cancel</button>
+												<!-- th:onclick="'showModal(\'' + ${employee.id} + '\');'" -->
+												<a th:href="@{'/admin/deleteEmployee/' + ${employee.id}}"
+													type="button" class="btn btn-danger">Delete Employee</a>
+
+											</div>
+										</div>
+									</div>
 								</td>
+
 							</tr>
 						</tbody>
 					</table>
@@ -151,6 +181,8 @@
 								<td>
 									<button type="button" class="btn btn-info">Delete</button> |
 									<button type="button" class="btn btn-info">Edit</button>
+
+
 								</td>
 							</tr>
 						</tbody>
@@ -162,5 +194,4 @@
 			</div>
 		</div>
 	</div>
-</body>
 </html>

@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.ogorodin.entity.Users;
 import org.ogorodin.services.web.IUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +42,17 @@ public class UsersController {
 			return _usersService.addOrUpdateUser(user);
 		} else
 			return false;
+	}
+
+	@DeleteMapping("/users/{userId}")
+	public boolean deleteUser(@PathVariable String userId) {
+		try {
+			_usersService.deleteUserById(Integer.parseInt(userId));
+			return true;
+		} catch (Exception exc) {
+			return false;
+		}
+
 	}
 
 }

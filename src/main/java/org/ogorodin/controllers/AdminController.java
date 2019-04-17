@@ -10,13 +10,12 @@ import org.ogorodin.services.web.IProductsService;
 import org.ogorodin.services.web.IUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/admin")
@@ -42,9 +41,22 @@ public class AdminController {
 	}
 
 	@PostMapping("/processForm")
-	public RedirectView processForm(@ModelAttribute EmployeeDetails employeeDetails) {
-		System.err.println(employeeDetails);
-		return new RedirectView("/admin");
+	public ModelAndView processForm(@ModelAttribute EmployeeDetails employeeDetails) {
+		// TEMPORARY SOLUTION, THIS ALWAYS LEEDS TO AN EXCEPTION!!!!
+		try {
+			_usersService.insertEmployeeWithDetails(employeeDetails.getFirstName(), employeeDetails.getLastName(),
+					employeeDetails.getAddress(), employeeDetails.getUsername(), employeeDetails.getPassword(),
+					employeeDetails.getEmail());
+		} catch (Exception exc) {
+			return new ModelAndView("redirect:/admin");
+		}
+		return new ModelAndView("redirect:/admin");
+	}
+
+	@GetMapping("/deleteEmployee/{employeeId}")
+	public String deleteEmployee(@PathVariable String employeeId) {
+		_usersService.deleteUserById(Integer.parseInt(employeeId));
+		return "redirect:/admin/index";
 	}
 
 }

@@ -38,4 +38,24 @@ public class ProductForHomeView {
 		return quantity;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setProductType(EProductType productType) {
+		this.productType = productType;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 }
