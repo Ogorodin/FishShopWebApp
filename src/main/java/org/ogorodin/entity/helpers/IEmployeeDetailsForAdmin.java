@@ -8,8 +8,12 @@ public interface IEmployeeDetailsForAdmin {
 
 	String getLastName();
 
+	String getAddress();
+
 	String getEmail();
 
 	String getUsername();
+
+	String getPassword();
 
 }

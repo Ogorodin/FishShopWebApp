@@ -29,11 +29,12 @@
 		document.getElementById('insertEmpForm').style.display = "block";
 		document.getElementById('employeesDiv').style.display = "none";
 	}
-	// UNUSED
-	function deleteEmployee(employeeId){
-		console.log("dufakame" + employeeId);
-		document.getElementById('deleteModal').style.display = "block";
+	function showEditForm(employee){
+		console.log('Employee object here: ');
+		console.log(employee.firstName);
+		console.log(employee.lastName);		
 	}
+	
 </script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -110,7 +111,6 @@
 								<th scope="col">Last name</th>
 								<th scope="col">Email</th>
 								<th scope="col">Username</th>
-								<th scope="col">Info</th>
 								<th scope="col">Action</th>
 							</tr>
 						</thead>
@@ -118,16 +118,18 @@
 						<tbody>
 							<tr th:each="employee : ${empDetailsList}">
 								<td scope="row" th:text="${employee.id}">ID</td>
-								<td scope="row" th:text="${employee.firstName}">firstName</td>
-								<td scope="row" th:text="${employee.lastName}">lastName</td>
+								<td scope="row" th:text="${employee.firstName}">firstName goes here</td>
+								<td scope="row" th:text="${employee.lastName}">lastName goes here</td>
 								<td scope="row" th:text="${employee.email}">email goes here</td>
-								<td scope="row" th:text="${employee.username}">user name</td>
-								<td><a>Details</a></td>
-								<td>
+								<td scope="row" th:text="${employee.username}">user name goes here</td>
+								<td th:data-employee="${employee}">
 									<button type="button" class="btn btn-info" data-toggle="modal"
 										th:attr="data-target='#modal-warning'+${employee.id}">Delete</button>
-									<button onClick="@{/edit}" type="button" class="btn btn-info">Edit</button>
-									<!-- MODAL -->
+									<button type="button" class="btn btn-info" 
+										th:data-employee="${employee}" th:onclick="showEditForm(this.getAttribute('data-employee'));"
+										>Details</button>
+																				
+									<!-- WARNING MODAL -->
 									<div class="modal fade" th:id="modal-warning+${employee.id}"
 										tabindex="-1" role="dialog" aria-hidden="true">
 										<div class="modal-dialog" role="document">
@@ -143,7 +145,6 @@
 													undone.</div>
 												<button type="button" class="btn btn-secondary"
 													data-dismiss="modal">Cancel</button>
-												<!-- th:onclick="'showModal(\'' + ${employee.id} + '\');'" -->
 												<a th:href="@{'/admin/deleteEmployee/' + ${employee.id}}"
 													type="button" class="btn btn-danger">Delete Employee</a>
 

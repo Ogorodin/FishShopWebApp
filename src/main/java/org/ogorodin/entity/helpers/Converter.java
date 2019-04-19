@@ -26,7 +26,7 @@ public class Converter {
 
 		for (IEmployeeDetailsForAdmin emp : detailsList) {
 			_employeeDetails.add(new EmployeeForAdminView(emp.getId(), emp.getFirstName(), emp.getLastName(),
-					emp.getEmail(), emp.getUsername()));
+					emp.getAddress(), emp.getEmail(), emp.getUsername(), emp.getPassword()));
 		}
 		return _employeeDetails;
 	}
