@@ -1,7 +1,9 @@
 package org.ogorodin.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,13 +14,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	@Autowired
+	private UserPrincipalDetailsService userPrincipalDetailsService;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication()
-			.withUser("customer").password(passwordEncoder().encode("customer")).roles("CUSTOMER").and()
-			.withUser("admin").password(passwordEncoder().encode("admin123")).roles("ADMIN").and()
-			.withUser("employee").password(passwordEncoder().encode("emp123")).roles("EMPLOYEE");
+		auth.authenticationProvider(authenticationProvider());
+		
+//		auth.inMemoryAuthentication()
+//			.withUser("customer").password(passwordEncoder().encode("customer")).roles("CUSTOMER").and()
+//			.withUser("admin").password(passwordEncoder().encode("admin123")).roles("ADMIN").and()
+//			.withUser("employee").password(passwordEncoder().encode("emp123")).roles("EMPLOYEE");
 	}
 
 	@Override
@@ -30,6 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/api/**").hasRole("ADMIN")
 			.antMatchers("/employee/**").hasAnyRole("EMPLOYEE", "ADMIN")
 		.and().httpBasic();
+	}
+	
+	@Bean
+	DaoAuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+		daoAuthenticationProvider.setUserDetailsService(this.userPrincipalDetailsService);
+		return daoAuthenticationProvider;		
 	}
 
 	@Bean

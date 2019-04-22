@@ -38,7 +38,7 @@ public class Users {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "roles")
-	private ERole role;
+	private ERole roles;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_info_id")
@@ -50,11 +50,11 @@ public class Users {
 	public Users() {
 	}
 
-	public Users(String username, String password, String email, ERole role) {
+	public Users(String username, String password, String email, ERole roles) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.role = role;
+		this.roles = roles;
 	}
 
 	public void setId(int id) {
@@ -90,11 +90,11 @@ public class Users {
 	}
 
 	public ERole getRole() {
-		return role;
+		return roles;
 	}
 
-	public void setRole(ERole role) {
-		this.role = role;
+	public void setRole(ERole roles) {
+		this.roles = roles;
 	}
 
 	public UserInfo getInfo() {
@@ -103,12 +103,6 @@ public class Users {
 
 	public void setInfo(UserInfo info) {
 		this.info = info;
-	}
-
-	@Override
-	public String toString() {
-		return "Users [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", role="
-				+ role + ", info=" + info + "]";
 	}
 
 }
