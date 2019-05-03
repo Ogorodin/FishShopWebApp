@@ -29,11 +29,7 @@
 		document.getElementById('insertEmpForm').style.display = "block";
 		document.getElementById('employeesDiv').style.display = "none";
 	}
-	function showEditForm(employee){
-		console.log('Employee object here: ');
-		console.log(employee.firstName);
-		console.log(employee.lastName);		
-	}
+
 	
 </script>
 <script
@@ -122,11 +118,10 @@
 								<td scope="row" th:text="${employee.lastName}">lastName goes here</td>
 								<td scope="row" th:text="${employee.email}">email goes here</td>
 								<td scope="row" th:text="${employee.username}">user name goes here</td>
-								<td th:data-employee="${employee}">
+								<td scope="row" th:data-employee="${employee}">
 									<button type="button" class="btn btn-info" data-toggle="modal"
 										th:attr="data-target='#modal-warning'+${employee.id}">Delete</button>
-									<button type="button" class="btn btn-info" 
-										th:data-employee="${employee}" th:onclick="showEditForm(this.getAttribute('data-employee'));"
+									<button type="button" class="btn btn-info" th:onclick="|showEditForm('${employee.id}')|"
 										>Details</button>
 																				
 									<!-- WARNING MODAL -->
@@ -180,7 +175,7 @@
 								<td scope="row" th:text="${product.price}">$</td>
 								<td><a>Details</a></td>
 								<td>
-									<button type="button" class="btn btn-info">Delete</button> |
+									<button type="button" class="btn btn-info">Deactivate?</button> |
 									<button type="button" class="btn btn-info">Edit</button>
 
 

@@ -9,6 +9,7 @@ import org.ogorodin.entity.helpers.ProductForAdminView;
 import org.ogorodin.services.web.IProductsService;
 import org.ogorodin.services.web.IUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,6 +26,8 @@ public class AdminController {
 	private IUsersService _usersService;
 	@Autowired
 	private IProductsService _productsService;
+	@Autowired
+	private PasswordEncoder _passwordEncoder;
 
 	@GetMapping({ "", "/", "/index" })
 	public ModelAndView showAdminHome() {
@@ -45,8 +48,8 @@ public class AdminController {
 		// TEMPORARY SOLUTION, THIS ALWAYS LEEDS TO AN EXCEPTION!!!!
 		try {
 			_usersService.insertEmployeeWithDetails(employeeDetails.getFirstName(), employeeDetails.getLastName(),
-					employeeDetails.getAddress(), employeeDetails.getUsername(), employeeDetails.getPassword(),
-					employeeDetails.getEmail());
+					employeeDetails.getAddress(), employeeDetails.getUsername(),
+					_passwordEncoder.encode(employeeDetails.getPassword()), employeeDetails.getEmail());
 		} catch (Exception exc) {
 			return new ModelAndView("redirect:/admin");
 		}
