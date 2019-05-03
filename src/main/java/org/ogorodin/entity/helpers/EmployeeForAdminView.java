@@ -77,4 +77,10 @@ public class EmployeeForAdminView {
 		this.password = password;
 	}
 
+	@Override
+	public String toString() {
+		return "EmployeeForAdminView [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", address="
+				+ address + ", email=" + email + ", username=" + username + ", password=" + password + "]";
+	}
+
 }
