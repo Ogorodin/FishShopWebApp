@@ -2,6 +2,7 @@ package org.ogorodin.entity.helpers;
 
 public class EmployeeDetails {
 
+	private int id;
 	private String firstName;
 	private String lastName;
 	private String address;
@@ -12,14 +13,23 @@ public class EmployeeDetails {
 	public EmployeeDetails() {
 	}
 
-	public EmployeeDetails(String firstName, String lastName, String address, String email, String username,
+	public EmployeeDetails(int id, String firstName, String lastName, String address, String email, String username,
 			String password) {
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
 		this.email = email;
 		this.username = username;
 		this.password = password;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -72,8 +82,8 @@ public class EmployeeDetails {
 
 	@Override
 	public String toString() {
-		return "EmployeeDetails [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address
-				+ ", email=" + email + ", username=" + username + ", password=" + password + "]";
+		return "EmployeeDetails [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", address="
+				+ address + ", email=" + email + ", username=" + username + ", password=" + password + "]";
 	}
 
 }

@@ -2,6 +2,7 @@ package org.ogorodin.controllers;
 
 import java.util.List;
 
+import org.ogorodin.entity.Users;
 import org.ogorodin.entity.helpers.Converter;
 import org.ogorodin.entity.helpers.EmployeeDetails;
 import org.ogorodin.entity.helpers.EmployeeForAdminView;
@@ -47,11 +48,23 @@ public class AdminController {
 	public ModelAndView processForm(@ModelAttribute EmployeeDetails employeeDetails) {
 		// TEMPORARY SOLUTION, THIS ALWAYS LEEDS TO AN EXCEPTION!!!!
 		try {
-			_usersService.insertEmployeeWithDetails(employeeDetails.getFirstName(), employeeDetails.getLastName(),
-					employeeDetails.getAddress(), employeeDetails.getUsername(),
-					_passwordEncoder.encode(employeeDetails.getPassword()), employeeDetails.getEmail());
+			if (employeeDetails.getPassword() != null) {
+				_usersService.insertEmployeeWithDetails(employeeDetails.getFirstName(), employeeDetails.getLastName(),
+						employeeDetails.getAddress(), employeeDetails.getUsername(),
+						_passwordEncoder.encode(employeeDetails.getPassword()), employeeDetails.getEmail());
+			} else {
+				System.err.println(employeeDetails.getId());
+				System.out.println("USers object for update:\n" + employeeDetails);
+				_usersService.updateEmployeeWithDetails(employeeDetails.getId(), employeeDetails.getFirstName(),
+						employeeDetails.getLastName(), employeeDetails.getAddress(), employeeDetails.getUsername(),
+						employeeDetails.getEmail());
+			}
+
 		} catch (Exception exc) {
+			System.err.println("Exception caught in processForm / Admin controller");
+			// exc.printStackTrace();
 			return new ModelAndView("redirect:/admin");
+
 		}
 		return new ModelAndView("redirect:/admin");
 	}
