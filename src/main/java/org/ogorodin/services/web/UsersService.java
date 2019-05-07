@@ -48,4 +48,10 @@ public class UsersService implements IUsersService {
 		_repository.insertEmployeeWithDetails(firstName, lastName, address, username, password, email);
 	}
 
+	@Override
+	public void updateEmployeeWithDetails(int id, String firstName, String lastName, String address, String username,
+			String email) {
+		_repository.updateEmployeeWithDetails(id, firstName, lastName, address, username, email);
+	}
+
 }

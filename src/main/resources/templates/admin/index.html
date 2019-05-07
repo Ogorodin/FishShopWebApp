@@ -1,193 +1,226 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
-<meta charset="utf-8">
-<title>Fish Shop - *ADMIN*</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <meta charset="utf-8">
+    <title>Fish Shop - *ADMIN*</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="../../javascripts/jquery/jquery-3.4.0.js"></script>
 </head>
-<script>
-	function showEmployees() {
-		document.getElementById('employeesDiv').style.display = "block";
-		document.getElementById('productsDiv').style.display = "none";
-		document.getElementById('customersDiv').style.display = "none";
-		document.getElementById('insertEmpForm').style.display = "none";
-	}
-	function showProducts() {
-		document.getElementById('productsDiv').style.display = "block";
-		document.getElementById('customersDiv').style.display = "none";
-		document.getElementById('employeesDiv').style.display = "none";
-		document.getElementById('insertEmpForm').style.display = "none";
-	}
-	function showCustomers() {
-		document.getElementById('customersDiv').style.display = "block";
-		document.getElementById('employeesDiv').style.display = "none";
-		document.getElementById('productsDiv').style.display = "none";
-		document.getElementById('insertEmpForm').style.display = "none";
-	}
-	function showForm() {
-		document.getElementById('insertEmpForm').style.display = "block";
-		document.getElementById('employeesDiv').style.display = "none";
-	}
 
-	
-</script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 <body>
-	<nav class="navbar navbar-default" role="navigation">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="/home"><strong>FISH</strong> Shop</a>
-			</div>
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1"></div>
-		</div>
-	</nav>
-	<div class="container">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/home"><strong>FISH</strong> Shop</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"></div>
+        </div>
+    </nav>
+    <div class="container">
 
-		<div class="row">
+        <div class="row">
 
-			<div class="col-md-3">
-				<button type="button" class="btn btn-primary btn-lg btn-block"
-					onClick="showEmployees()">Employees</button>
-				<br>
-				<button type="button" class="btn btn-primary btn-lg btn-block"
-					onClick="showProducts()">Products</button>
-				<br>
-				<button type="button" class="btn btn-primary btn-lg btn-block"
-					onClick="showCustomers()">Customers</button>
-			</div>
-			<div class="col-md-9">
-				<p>Only Administrators can see this page</p>
-				<!-- This <div> will show when the Add button is clicked -->
-				<!-- UNDER CONSTRUCTION -->
-				<div id="insertEmpForm" style="display: none">
-					<form action="#" th:action="@{/admin/processForm}"
-						th:object="${employeeDetailsObj}" method="POST">
-						<div class="form-group">
-							<label>First name:</label> <input type="text"
-								th:field="*{firstName}" class="form-control">
-						</div>
-						<div class="form-group">
-							<label>Last name:</label> <input type="text"
-								th:field="*{lastName}" class="form-control">
-						</div>
-						<div class="form-group">
-							<label>Address:</label> <input type="text" th:field="*{address}"
-								class="form-control">
-						</div>
-						<div class="form-group">
-							<label>Email:</label> <input type="text" th:field="*{email}"
-								class="form-control">
-						</div>
-						<div class="form-group">
-							<label>Username:</label> <input type="text"
-								th:field="*{username}" class="form-control">
-						</div>
-						<div class="form-group">
-							<label>Password:</label> <input type="text"
-								th:field="*{password}" class="form-control">
-						</div>
-						<button type="submit" class="btn btn-default">Submit</button>
-						<button type="submit" class="btn btn-default">Cancel</button>
-					</form>
-					<!--  -->
-				</div>
-				<div id="employeesDiv" style="display: none">
-					<!-- UNDER CONSTRUCTION -->
-					<button type="button" class="btn btn-success" onClick="showForm()">Add</button>
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th scope="col">ID</th>
-								<th scope="col">First name</th>
-								<th scope="col">Last name</th>
-								<th scope="col">Email</th>
-								<th scope="col">Username</th>
-								<th scope="col">Action</th>
-							</tr>
-						</thead>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary btn-lg btn-block"
+                    onClick="showEmployees()">Employees</button>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg btn-block"
+                    onClick="showProducts()">Products</button>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg btn-block"
+                    onClick="showCustomers()">Customers</button>
+            </div>
+            <div class="col-md-9">
+                <p>Only Administrators can see this page</p>
+                <!-- This <div> will show when the Add button is clicked -->
+                <!-- UNDER CONSTRUCTION -->
+                <div id="insertEmpForm" style="display: none">
+                    <form th:action="@{/admin/processForm}" th:object="${employeeDetailsObj}" method="POST">
+                        <input type="text" th:field="*{id}" />
+                        <div class="form-group">
+                            <label>First name:</label>
+                            <input type="text" th:field="*{firstName}" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last name:</label>
+                            <input type="text" th:field="*{lastName}" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Address:</label>
+                            <input type="text" th:field="*{address}" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="text" th:field="*{email}" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Username:</label>
+                            <input type="text" th:field="*{username}" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password:</label>
+                            <input type="text" th:field="*{password}" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                        <button type="button" onClick="showEmployees()" class="btn btn-default">Cancel</button>
+                    </form>
+                    <!--  -->
+                </div>
+                <div id="employeesDiv" style="display: none">
+                    <!-- UNDER CONSTRUCTION -->
+                    <button type="button" class="btn btn-success" onClick="showForm()">Add</button>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">First name</th>
+                                <th scope="col">Last name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
 
-						<tbody>
-							<tr th:each="employee : ${empDetailsList}">
-								<td scope="row" th:text="${employee.id}">ID</td>
-								<td scope="row" th:text="${employee.firstName}">firstName goes here</td>
-								<td scope="row" th:text="${employee.lastName}">lastName goes here</td>
-								<td scope="row" th:text="${employee.email}">email goes here</td>
-								<td scope="row" th:text="${employee.username}">user name goes here</td>
-								<td scope="row" th:data-employee="${employee}">
-									<button type="button" class="btn btn-info" data-toggle="modal"
-										th:attr="data-target='#modal-warning'+${employee.id}">Delete</button>
-									<button type="button" class="btn btn-info" th:onclick="|showEditForm('${employee.id}')|"
-										>Details</button>
-																				
-									<!-- WARNING MODAL -->
-									<div class="modal fade" th:id="modal-warning+${employee.id}"
-										tabindex="-1" role="dialog" aria-hidden="true">
-										<div class="modal-dialog" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title">Caution!</h5>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">Are you sure? This can't be
-													undone.</div>
-												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">Cancel</button>
-												<a th:href="@{'/admin/deleteEmployee/' + ${employee.id}}"
-													type="button" class="btn btn-danger">Delete Employee</a>
+                        <tbody>
+                            <tr th:each="employee : ${empDetailsList}">
+                                <td scope="row" th:text="${employee.id}">ID</td>
+                                <td scope="row" th:text="${employee.firstName}">firstName goes here</td>
+                                <td scope="row" th:text="${employee.lastName}">lastName goes here</td>
+                                <td scope="row" th:text="${employee.email}">email goes here</td>
+                                <td scope="row" th:text="${employee.username}">user name goes here</td>
+                                <td scope="row" th:data-employee="${employee}">
+                                    <button type="button" class="btn btn-info" data-toggle="modal"
+                                        th:attr="data-target='#modal-warning'+${employee.id}">Delete</button>
+                                    <button type="button" th:empId="detailsBtn+${employee.id}"
+                                        class="btn btn-info">Edit</button>
 
-											</div>
-										</div>
-									</div>
-								</td>
-
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div id="productsDiv" style="display: none">
-					<button type="button" class="btn btn-success">Add</button>
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th scope="col">ID</th>
-								<th scope="col">Product type</th>
-								<th scope="col">Title</th>
-								<th scope="col">Quantity</th>
-								<th scope="col">Price</th>
-								<th scope="col">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="product : ${productDetailsList}">
-								<td scope="row" th:text="${product.id}">ID</td>
-								<td scope="row" th:text="${product.productType}">product
-									type</td>
-								<td scope="row" th:text="${product.title}">title</td>
-								<td scope="row" th:text="${product.quantity}">q</td>
-								<td scope="row" th:text="${product.price}">$</td>
-								<td><a>Details</a></td>
-								<td>
-									<button type="button" class="btn btn-info">Deactivate?</button> |
-									<button type="button" class="btn btn-info">Edit</button>
+                                    <!-- WARNING MODAL -->
+                                    <div class="modal fade" th:id="modal-warning+${employee.id}" tabindex="-1"
+                                        role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Caution!</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">Are you sure? This can't be
+                                                    undone.</div>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancel</button>
+                                                <a th:href="@{'/admin/deleteEmployee/' + ${employee.id}}" type="button"
+                                                    class="btn btn-danger">Delete Employee</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="productsDiv" style="display: none">
+                    <button type="button" class="btn btn-success">Add</button>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Product type</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="product : ${productDetailsList}">
+                                <td scope="row" th:text="${product.id}">ID</td>
+                                <td scope="row" th:text="${product.productType}">product
+                                    type</td>
+                                <td scope="row" th:text="${product.title}">title</td>
+                                <td scope="row" th:text="${product.quantity}">q</td>
+                                <td scope="row" th:text="${product.price}">$</td>
+                                <td><a>Details</a></td>
+                                <td>
+                                    <button type="button" class="btn btn-info">Deactivate?</button> |
+                                    <button type="button" class="btn btn-info">Edit</button>
 
 
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div id="customersDiv" style="display: none">
-					<p>Customers table missing for now :)</p>
-				</div>
-			</div>
-		</div>
-	</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="customersDiv" style="display: none">
+                    <p>Customers table missing for now :)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showEmployees() {
+            document.getElementById('employeesDiv').style.display = "block";
+            document.getElementById('productsDiv').style.display = "none";
+            document.getElementById('customersDiv').style.display = "none";
+            document.getElementById('insertEmpForm').style.display = "none";
+        }
+        function showProducts() {
+            document.getElementById('productsDiv').style.display = "block";
+            document.getElementById('customersDiv').style.display = "none";
+            document.getElementById('employeesDiv').style.display = "none";
+            document.getElementById('insertEmpForm').style.display = "none";
+        }
+        function showCustomers() {
+            document.getElementById('customersDiv').style.display = "block";
+            document.getElementById('employeesDiv').style.display = "none";
+            document.getElementById('productsDiv').style.display = "none";
+            document.getElementById('insertEmpForm').style.display = "none";
+        }
+        function showForm() {
+            document.getElementById('insertEmpForm').style.display = "block";
+            document.getElementById('employeesDiv').style.display = "none";
+
+        }
+
+        function showForm(employee) {
+            console.log(employee);
+            if (employee != undefined) {
+                $('#id').val(employee.id);
+                $('#firstName').val(employee.info.first_name);
+                $('#lastName').val(employee.info.last_name);
+                $('#address').val(employee.info.address);
+                $('#email').val(employee.email);
+                $('#username').val(employee.username);
+                $('#password').val(employee.password).attr('type', 'password').prop('disabled', true);
+            }
+            document.getElementById('insertEmpForm').style.display = "block";
+            document.getElementById('employeesDiv').style.display = "none";
+        }
+
+        $(document).ready(function () {
+            $('button[empId^="detailsBtn"]').on('click', function () {
+                const empId = $(this).attr('empId').replace('detailsBtn', '');
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/users/' + empId,
+                    success: function (data) {
+                        console.log('Employee ID: --> ' + empId);
+                        showForm(data);
+                    },
+                    error: function () {
+                        alert('Something went wrong!');
+                    }
+                })
+            })
+        });
+
+    </script>
+</body>
+
 </html>
