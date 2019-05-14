@@ -21,9 +21,7 @@
         </div>
     </nav>
     <div class="container">
-
         <div class="row">
-
             <div class="col-md-3">
                 <button type="button" class="btn btn-primary btn-lg btn-block"
                     onClick="showEmployees()">Employees</button>
@@ -37,7 +35,6 @@
             <div class="col-md-9">
                 <p>Only Administrators can see this page</p>
                 <!-- This <div> will show when the Add button is clicked -->
-                <!-- UNDER CONSTRUCTION -->
                 <div id="insertEmpForm" style="display: none">
                     <form th:action="@{/admin/processForm}" th:object="${employeeDetailsObj}" method="POST">
                         <input type="text" th:field="*{id}" />
@@ -71,7 +68,6 @@
                     <!--  -->
                 </div>
                 <div id="employeesDiv" style="display: none">
-                    <!-- UNDER CONSTRUCTION -->
                     <button type="button" class="btn btn-success" onClick="showForm()">Add</button>
                     <table class="table table-striped">
                         <thead>
@@ -185,7 +181,6 @@
         function showForm() {
             document.getElementById('insertEmpForm').style.display = "block";
             document.getElementById('employeesDiv').style.display = "none";
-
         }
 
         function showForm(employee) {
@@ -206,6 +201,7 @@
         $(document).ready(function () {
             $('button[empId^="detailsBtn"]').on('click', function () {
                 const empId = $(this).attr('empId').replace('detailsBtn', '');
+
                 $.ajax({
                     type: 'GET',
                     url: '/api/users/' + empId,

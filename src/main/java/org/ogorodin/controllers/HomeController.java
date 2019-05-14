@@ -3,7 +3,6 @@ package org.ogorodin.controllers;
 import java.util.List;
 
 import org.ogorodin.entity.helpers.Converter;
-import org.ogorodin.entity.helpers.IProductHomePageSummary;
 import org.ogorodin.entity.helpers.ProductForHomeView;
 import org.ogorodin.entity.helpers.ProductsOrganizer;
 import org.ogorodin.services.web.IProductsService;
@@ -20,9 +19,9 @@ public class HomeController {
 	private IProductsService _productsService;
 
 	@GetMapping({ "", "/", "/index", "/home" })
-	public ModelAndView ModelAndView() {
+	public ModelAndView showHomePage() {
 		ModelAndView modelAndView = new ModelAndView();
-		
+
 		Converter converter = new Converter();
 		List<ProductForHomeView> listOfProducts = converter
 				.convertToProductForHomeView(_productsService.getProductsInfoForTheHomePage());
