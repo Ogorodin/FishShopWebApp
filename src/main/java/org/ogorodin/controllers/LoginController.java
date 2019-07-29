@@ -1,11 +1,17 @@
 package org.ogorodin.controllers;
 
-import org.springframework.stereotype.Controller;
+import java.util.Date;
+
+import org.ogorodin.entity.helpers.LoginCredentials;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+@RestController
 public class LoginController {
 
 	// UNDER CONSTRUCTION
@@ -16,12 +22,13 @@ public class LoginController {
 		return modelAndView;
 	}
 
-	@PostMapping("/login")
-	public ModelAndView login() {
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public void login(@RequestBody LoginCredentials credentials) {
 		System.err.println("In login() / LoginController");
-		ModelAndView modelAndView = new ModelAndView("index");
-
-		return modelAndView;
+		String username = credentials.getUsername();
+		String password = credentials.getPassword();
+		System.out.println("User: " + username + "\nPass: " + password);
+		System.out.println("Date: " + new Date().toString());
 
 	}
 
