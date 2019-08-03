@@ -29,7 +29,7 @@ public class HomeController {
 		ProductsOrganizer organizedProducts = new ProductsOrganizer(listOfProducts);
 		modelAndView.addObject("organizedProducts", organizedProducts);
 
-		// pagination part // NOT CLOSE TO BE DONE...
+		// pagination part // UNDER CONSTRUCTION // got stuck
 		PagedListHolder<ProductForHomeView> fishPagedList = new PagedListHolder<>(
 				(List<ProductForHomeView>) organizedProducts.fishProducts);
 		fishPagedList.setPageSize(3);

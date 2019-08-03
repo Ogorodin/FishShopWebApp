@@ -261,17 +261,8 @@
 						'username': $('#username').val(),
 						'password': $('#password').val()
 					};
-					//			var formData = {};
-					//			formData['username'] = $('#username').val();
-					//			formData['password'] = $('#password').val();
 
 					var loginUrl = '/login';
-
-
-
-					//			console.log(formData.username);
-					//			console.log(formData.password);
-					//			console.log(formData); // to make sure form data is picked up from the modal
 
 					$.ajax({
 						type: 'POST',
@@ -280,9 +271,9 @@
 						url: loginUrl,
 						success: function (payload) {
 							console.log('success block');
-							console.log(formData);
 						},
 						error: function (payload) {
+							console.log('error block');
 							console.log('this is the URL: ' + loginUrl);
 							console.log('this is the formData: ');
 							console.log(formData);

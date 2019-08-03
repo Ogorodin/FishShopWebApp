@@ -3,13 +3,12 @@ package org.ogorodin.repository;
 import org.ogorodin.entity.Users;
 import org.ogorodin.entity.helpers.IEmployeeDetailsForAdmin;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 public interface IUsersRepository extends CrudRepository<Users, Integer> {
 
-	Users findByUsername(String username);
+	 Users findByUsername(String username);
 
 	// this query SUMMONS ALL THE INFO ABOUT THE USER; both from users and user_info
 	// tables
@@ -28,4 +27,5 @@ public interface IUsersRepository extends CrudRepository<Users, Integer> {
 	void updateEmployeeWithDetails(@Param(value = "id") int id, @Param(value = "firstName") String firstName,
 			@Param(value = "lastName") String lastName, @Param(value = "address") String address,
 			@Param(value = "username") String username, @Param(value = "email") String email);
+
 }
