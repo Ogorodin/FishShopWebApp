@@ -5,6 +5,7 @@ import java.util.List;
 import org.ogorodin.entity.helpers.Converter;
 import org.ogorodin.entity.helpers.ProductForHomeView;
 import org.ogorodin.entity.helpers.ProductsOrganizer;
+import org.ogorodin.entity.helpers.login.LoginResponse;
 import org.ogorodin.services.web.IProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
@@ -42,7 +43,10 @@ public class HomeController {
 		modelAndView.addObject("maxFishes", fishPagedList.getPageCount());
 		modelAndView.addObject("maxPlants", plantsPagedList.getPageCount());
 		modelAndView.addObject("maxOther", otherPagedList.getPageCount());
-
+		
+		// object needed for eventual login try
+		modelAndView.addObject("loginResponse", new LoginResponse(true)); 
+		
 		modelAndView.setViewName("index");
 		return modelAndView;
 	}

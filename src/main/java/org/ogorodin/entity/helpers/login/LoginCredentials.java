@@ -1,4 +1,4 @@
-package org.ogorodin.entity.helpers;
+package org.ogorodin.entity.helpers.login;
 
 /*
  * This class's sole purpose is to represent the user credentials

@@ -5,7 +5,7 @@
 
 <head>
 	<meta charset="utf-8">
-	
+
 	<!-- CSRF 
 		<meta name="_csrf" content="${_csrf.token}" />
 		<meta name="_csrf_header" content="${_csrf.headerName}" />
@@ -217,16 +217,20 @@
 
 
 	<!-- LOGIN MODAL -->
-	<div id="loginModal" class="modal fade">
+	<div id="loginModal" class="modal fade" th:fragment="loginModalFragment">
 		<div class="modal-dialog modal-login">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title text-center">Login</h4>
+				<div class="modal-header">					
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
+					<h4 class="modal-title text-center">Login</h4>					
+						
+					<div th:if="${loginResponse.isAttemptedLogin()}">
+						<p th:text="${loginResponse.getErrorMessage()}">Error message here.</p>
+					</div>				
+					
 				</div>
 				<div class="modal-body">
-					<!-- this was pulled out of the form tag -- action="/login" -->
 					<form id="loginForm" method="POST">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Username"
@@ -269,14 +273,30 @@
 						contentType: "application/json",
 						data: JSON.stringify(formData),
 						url: loginUrl,
-						success: function (payload) {
+						success: function (loginResponse) {
 							console.log('success block');
+							console.log('This is the payload: ');
+							console.log('isValidated: ' + loginResponse.validated);
+							console.log('isAttemptedLogin: ' + loginResponse.attemptedLogin);
+							if (!loginResponse.validated) {
+								console.log('User not in database!')
+								console.log('Error message: ' + loginResponse.errorMessage);
+
+								// new try
+								$('.modal-header').html(loginResponse.errorMessage);
+								$('#loginModal').modal('show');
+							} else {
+								console.log('ELSE')
+							}
+
+							$('#loginModal').modal('show');
 						},
 						error: function (payload) {
 							console.log('error block');
 							console.log('this is the URL: ' + loginUrl);
 							console.log('this is the formData: ');
 							console.log(formData);
+							console.log(payload);
 							alert('Something went wrong!');
 
 						}

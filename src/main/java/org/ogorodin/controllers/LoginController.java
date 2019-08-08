@@ -1,10 +1,15 @@
 package org.ogorodin.controllers;
 
+import java.util.Scanner;
+
 import org.ogorodin.entity.Users;
-import org.ogorodin.entity.helpers.LoginCredentials;
+import org.ogorodin.entity.helpers.login.LoginCredentials;
+import org.ogorodin.entity.helpers.login.LoginResponse;
 import org.ogorodin.services.web.IUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,31 +32,43 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public void login(@RequestBody LoginCredentials credentials) {
+	public LoginResponse login(@RequestBody LoginCredentials credentials, Model model) {
+		LoginResponse loginResponse = new LoginResponse(true);
 		String username = credentials.getUsername();
-		// find the user with the requested user-name
+
 		try {
+			// find the user with the requested user-name
 			Users user = _usersService.findUserByUsername(username);
 			if (user != null) {
 				boolean isAuthenticated = BCrypt.checkpw(credentials.getPassword(), user.getPassword());
 				if (isAuthenticated) {
-					// user is found in db and authenticated
-					System.out.println("User found: ");
-					System.out.println(user.getId() + "  " + user.getEmail() + " " + user.getPassword() + " "
-							+ user.getUsername() + " " + user.getRole());
+					// user is found in DB and authenticated
+					System.out.println("User is authenticated as: " + user);
+					// for testing modal response
+					Scanner user_input = new Scanner(System.in);
+					System.out.println("Enter random number");
+					int i = user_input.nextInt();
+
+					model.addAttribute("loggedInUser", user);
+					System.err.println(model.containsAttribute("loggedInUser"));
+					return null;
 
 				} else {
-					// passwords don't match
-					System.out.println("Invalid password");
+					// user-name found but passwords don't match
+					System.out.println("Passwords don't match.");
+					loginResponse.setErrorMessage("Invalid username or password.");					
 				}
 
 			} else {
-				System.out.println("No such user in db!");
+				// user-name not found in database
+				loginResponse.setValidated(false);
+				loginResponse.setErrorMessage("Invalid username or password.");
 			}
 		} catch (Exception exc) {
 			System.out.println("Can't connect to database.");
 			exc.printStackTrace();
 		}
+		return loginResponse;
 
 	}
 
