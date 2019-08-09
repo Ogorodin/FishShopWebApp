@@ -10,7 +10,7 @@ public class LoginResponse {
 	private Users _user;
 	private boolean _validated;
 	private boolean _attemptedLogin;
-	private String _errorMessage;	
+	private String _message;	
 
 	public LoginResponse(boolean attemptedLogin) {
 		this._attemptedLogin = attemptedLogin;
@@ -40,12 +40,12 @@ public class LoginResponse {
 		this._attemptedLogin = attemptedLogin;
 	}
 
-	public String getErrorMessage() {
-		return _errorMessage;
+	public String getMessage() {
+		return _message;
 	}
 
-	public void setErrorMessage(String errorMessage) {
-		this._errorMessage = errorMessage;
+	public void setMessage(String message) {
+		this._message = message;
 	}
 
 }

@@ -9,7 +9,6 @@ import org.ogorodin.services.web.IUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,8 +30,53 @@ public class LoginController {
 		return modelAndView;
 	}
 
+//	@RequestMapping(value = "/login", method = RequestMethod.POST)
+//	public ModelAndView login(@RequestBody LoginCredentials credentials) {
+//		System.err.println("Inside the controller!");
+//		System.out.println(credentials.getUsername());
+//		System.out.println(credentials.getPassword());
+//		String username = credentials.getUsername();
+//		
+//		ModelAndView modelAndView = new ModelAndView();
+//
+//		try {
+//			// find the user with the requested user-name
+//			Users user = _usersService.findUserByUsername(username);
+//			if (user != null) {
+//				boolean isAuthenticated = BCrypt.checkpw(credentials.getPassword(), user.getPassword());
+//				if (isAuthenticated) {
+//					// user is found in DB and authenticated
+//					System.out.println("User is authenticated as: " + user);
+//					// for testing modal response
+//					Scanner user_input = new Scanner(System.in);
+//					System.out.println("Enter random number");
+//					int i = user_input.nextInt();
+//
+//					modelAndView.addObject("theUser", user);
+//
+//				} else {
+//					// user-name found but passwords don't match
+//					System.err.println("Passwords don't match.");
+//					modelAndView.addObject("errorMessage", "Username or password don't match.");	
+//					
+//				}
+//
+//			} else {
+//				// user-name not found in database
+//				System.err.println("User-name not found in database");
+//				modelAndView.addObject("errorMessage", "Username or password don't match.");	
+//			}
+//		} catch (Exception exc) {
+//			System.out.println("Can't connect to database.");
+//			exc.printStackTrace();
+//		}
+//		return modelAndView;
+//
+//	}
+	
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public LoginResponse login(@RequestBody LoginCredentials credentials, Model model) {
+	public LoginResponse login(@RequestBody LoginCredentials credentials) {
 		LoginResponse loginResponse = new LoginResponse(true);
 		String username = credentials.getUsername();
 
@@ -49,20 +93,21 @@ public class LoginController {
 					System.out.println("Enter random number");
 					int i = user_input.nextInt();
 
-					model.addAttribute("loggedInUser", user);
-					System.err.println(model.containsAttribute("loggedInUser"));
-					return null;
-
+					loginResponse.setValidated(true);
+					loginResponse.setMessage("You logged in successfully.");
+					loginResponse.setUser(user);
+					System.err.println("Successful login!");
+					
 				} else {
 					// user-name found but passwords don't match
 					System.out.println("Passwords don't match.");
-					loginResponse.setErrorMessage("Invalid username or password.");					
+					loginResponse.setMessage("Invalid username or password.");					
 				}
 
 			} else {
 				// user-name not found in database
 				loginResponse.setValidated(false);
-				loginResponse.setErrorMessage("Invalid username or password.");
+				loginResponse.setMessage("Invalid username or password.");
 			}
 		} catch (Exception exc) {
 			System.out.println("Can't connect to database.");

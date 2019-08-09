@@ -27,8 +27,8 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="cart">Cart</a></li>
-					<li><a type="button" id="login" data-toggle="modal" class="btn">Login</a></li>
-					<li><a th:href="@{/register}">Signup</a></li>
+					<li><a type="button" id="loginButton" data-toggle="modal" class="btn">Login</a></li>
+					<li><a id="signupButton" th:href="@{/register}">Signup</a></li>
 				</ul>
 				<form class="navbar-form navbar-right" role="search">
 					<div class="form-group">
@@ -220,13 +220,14 @@
 	<div id="loginModal" class="modal fade" th:fragment="loginModalFragment">
 		<div class="modal-dialog modal-login">
 			<div class="modal-content">
-				<div class="modal-header">					
-					<button type="button" class="close" data-dismiss="modal"
+				<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
+				<div class="modal-header">					
+					
 					<h4 class="modal-title text-center">Login</h4>					
 						
 					<div th:if="${loginResponse.isAttemptedLogin()}">
-						<p th:text="${loginResponse.getErrorMessage()}">Error message here.</p>
+						<p th:text="${loginResponse.getMessage()}">Error message here.</p>
 					</div>				
 					
 				</div>
@@ -234,7 +235,7 @@
 					<form id="loginForm" method="POST">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Username"
-								required="required" id="username" name="">
+								required="required" id="username">
 						</div>
 						<div class="form-group">
 							<input type="password" class="form-control"
@@ -256,7 +257,7 @@
 	<script>
 		$(document).ready(function () {
 
-			$('#login').on('click', function () {
+			$('#loginButton').on('click', function () {
 				$('#loginModal').modal('toggle');
 
 				$('#loginForm').submit(function (event) {
@@ -275,18 +276,29 @@
 						url: loginUrl,
 						success: function (loginResponse) {
 							console.log('success block');
-							console.log('This is the payload: ');
+							var user = loginResponse.user;
+							console.log(user.id);
+							console.log(user.username);
+							console.log(user.passwrod);
+
 							console.log('isValidated: ' + loginResponse.validated);
 							console.log('isAttemptedLogin: ' + loginResponse.attemptedLogin);
 							if (!loginResponse.validated) {
 								console.log('User not in database!')
-								console.log('Error message: ' + loginResponse.errorMessage);
+								console.log('Error message: ' + loginResponse.message);
+								console.log('User object: ' + loginResponse.user);
 
 								// new try
-								$('.modal-header').html(loginResponse.errorMessage);
+								$('.modal-header').html(loginResponse.message);
 								$('#loginModal').modal('show');
 							} else {
-								console.log('ELSE')
+								console.log('SUCCESSFUL LOGIN');
+								console.log('Message: ' + loginResponse.message);
+								$('.modal-header').html(loginResponse.message);
+								$('.modal-body').hide();
+								$('.modal-footer').hide();
+								$('#loginButton').hide();
+								$('#signupButton').hide();
 							}
 
 							$('#loginModal').modal('show');
@@ -296,7 +308,7 @@
 							console.log('this is the URL: ' + loginUrl);
 							console.log('this is the formData: ');
 							console.log(formData);
-							console.log(payload);
+							console.log(payload.message);
 							alert('Something went wrong!');
 
 						}
