@@ -18,28 +18,7 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-default" role="navigation">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="/home"><strong>FISH</strong> Shop</a>
-			</div>
-			<!--   <div sec:authorize="!isAuthenticated()" -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="cart">Cart</a></li>
-					<li><a type="button" id="loginButton" data-toggle="modal" class="btn">Login</a></li>
-					<li><a id="signupButton" th:href="@{/register}">Signup</a></li>
-				</ul>
-				<form class="navbar-form navbar-right" role="search">
-					<div class="form-group">
-						<input type="text" placeholder="UNRESPONSIVE!" class="form-control">
-					</div>
-					&nbsp;
-					<button type="submit" class="btn btn-primary">Search</button>
-				</form>
-			</div>
-		</div>
-	</nav>
+	<header th:insert="fragments/fragments.html :: header"> </header>
 	<div id="homeView" class="container">
 		<div class="row">
 			<!-- Organized products, menu on the left -->
@@ -217,42 +196,8 @@
 
 
 	<!-- LOGIN MODAL -->
-	<div id="loginModal" class="modal fade" th:fragment="loginModalFragment">
-		<div class="modal-dialog modal-login">
-			<div class="modal-content">
-				<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-				<div class="modal-header">					
-					
-					<h4 class="modal-title text-center">Login</h4>					
-						
-					<div th:if="${loginResponse.isAttemptedLogin()}">
-						<p th:text="${loginResponse.getMessage()}">Error message here.</p>
-					</div>				
-					
-				</div>
-				<div class="modal-body">
-					<form id="loginForm" method="POST">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Username"
-								required="required" id="username">
-						</div>
-						<div class="form-group">
-							<input type="password" class="form-control"
-								placeholder="Password" required="required" id="password">
-						</div>
-						<div class="form-group">
-							<button type="submit" class="btn btn-primary btn-block btn-lg">Login</button>
-						</div>
-					</form>
+	<div th:insert="fragments/fragments.html :: loginModal">
 
-				</div>
-				<div class="modal-footer">
-					<i>This is unresponsive at this point ----></i> <a href="#">Forgot
-						Password?</a>
-				</div>
-			</div>
-		</div>
 	</div>
 	<script>
 		$(document).ready(function () {
@@ -277,9 +222,9 @@
 						success: function (loginResponse) {
 							console.log('success block');
 							var user = loginResponse.user;
+
 							console.log(user.id);
 							console.log(user.username);
-							console.log(user.passwrod);
 
 							console.log('isValidated: ' + loginResponse.validated);
 							console.log('isAttemptedLogin: ' + loginResponse.attemptedLogin);
@@ -299,8 +244,9 @@
 								$('.modal-footer').hide();
 								$('#loginButton').hide();
 								$('#signupButton').hide();
+								$('#logoutButton').show();
+								$('#userButton').show();
 							}
-
 							$('#loginModal').modal('show');
 						},
 						error: function (payload) {
