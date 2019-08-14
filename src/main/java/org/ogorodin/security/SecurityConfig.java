@@ -29,11 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/").permitAll()
 			.antMatchers("/index").permitAll()
 			.antMatchers("/home").permitAll()
-			.antMatchers("/login/**").permitAll()
 			.antMatchers("/admin/**").hasRole("ADMIN")
 			.antMatchers("/api/**").hasRole("ADMIN")
 			.antMatchers("/employee/**").hasAnyRole("EMPLOYEE", "ADMIN")
-		.and().httpBasic();
+			.and()
+			.formLogin().loginPage("/login").permitAll();
 	}
 	
 	@Bean

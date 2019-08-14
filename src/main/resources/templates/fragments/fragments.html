@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	lang="eng">
 
-<head>
-	<meta charset="ISO-8859-1">
-	<title>Fragments</title>
+<head th:fragment="headerfiles">
+    <title>* F I S H - S H O P *</title>
+    <meta charset="UTF-8"/>
+    <link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -15,18 +17,23 @@
 				<div class="navbar-header">
 					<a class="navbar-brand" href="/home"><strong>FISH</strong> Shop</a>
 				</div>
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="cart">Cart</a></li>
-						<li><a sec:authorize="!isAuthenticated()" type="button" id="loginButton" data-toggle="modal"
-								class="btn">Login</a></li>
-						<li><a sec:authorize="isAuthenticated()" id="logoutButton" th:href="@{/logout}">Logout</a></li>
+						<!-- id="loginButton" // pulled out -->
+						<li><a sec:authorize="!isAuthenticated()" type="button"
+							th:onclick="@{location.href='/login'}" data-toggle="modal"
+							class="btn">Login</a></li>
+						<li><a sec:authorize="isAuthenticated()" id="logoutButton"
+							th:href="@{/logout}">Logout</a></li>
 						<li><a sec:authentication="name" id="userButton" class="btn"></a></li>
-						<li><p sec:authentication="name">Welcome, guest!</p></li>
+						<li><p>Welcome, </p><p sec:authentication="name">Welcome, guest!</p></li>
 					</ul>
 					<form class="navbar-form navbar-right" role="search">
 						<div class="form-group">
-							<input type="text" placeholder="UNRESPONSIVE!" class="form-control">
+							<input type="text" placeholder="UNRESPONSIVE!"
+								class="form-control">
 						</div>
 						&nbsp;
 						<button type="submit" class="btn btn-primary">Search</button>
@@ -34,49 +41,6 @@
 				</div>
 			</div>
 		</nav>
-	</div>
-
-	<!-- LOGIN MODAL -->
-	<div th:fragment="loginModal">
-		<div id="loginModal" class="modal fade">
-			<div class="modal-dialog modal-login">
-				<div class="modal-content">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<div class="modal-header">
-
-						<h4 class="modal-title text-center">Login</h4>
-
-						<div th:if="${loginResponse.isAttemptedLogin()}">
-							<p th:text="${loginResponse.getMessage()}">Error message here.</p>
-						</div>
-
-					</div>
-					<div class="modal-body">
-						<form id="loginForm" method="POST">
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Username" required="required"
-									id="username">
-							</div>
-							<div class="form-group">
-								<input type="password" class="form-control" placeholder="Password" required="required"
-									id="password">
-							</div>
-							<div class="form-group">
-								<button type="submit" class="btn btn-primary btn-block btn-lg">Login</button>
-							</div>
-						</form>
-
-					</div>
-					<div class="modal-footer">
-						<ul style="list-style-type: none;">
-							<i>This is unresponsive at this point ----></i>
-							<li><a href="#">Forgot Password?</a></li>
-							<li><a th:href="@{/register}">Not a member yet? Sign up!</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 
 </body>

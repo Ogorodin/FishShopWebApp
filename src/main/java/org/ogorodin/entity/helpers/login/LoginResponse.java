@@ -1,27 +1,28 @@
 package org.ogorodin.entity.helpers.login;
 
 import org.ogorodin.entity.Users;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /*
  * This object is sent back from the LoginController to the AJAX in index.html
  */
 public class LoginResponse {
 
-	private Users _user;
+	private UserDetails _userDetails;
 	private boolean _validated;
 	private boolean _attemptedLogin;
-	private String _message;	
+	private String _message;
 
 	public LoginResponse(boolean attemptedLogin) {
 		this._attemptedLogin = attemptedLogin;
 	}
 
-	public Users getUser() {
-		return _user;
+	public UserDetails get_userDetails() {
+		return _userDetails;
 	}
 
-	public void setUser(Users user) {
-		this._user = user;
+	public void set_userDetails(UserDetails _userDetails) {
+		this._userDetails = _userDetails;
 	}
 
 	public boolean isValidated() {

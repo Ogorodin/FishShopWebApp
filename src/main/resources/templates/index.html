@@ -1,21 +1,10 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	lang="eng">
 
-<head>
-	<meta charset="utf-8">
-
-	<!-- CSRF 
-		<meta name="_csrf" content="${_csrf.token}" />
-		<meta name="_csrf_header" content="${_csrf.headerName}" />
-	-->
-	<title>Fish Shop</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<script src="../javascripts/jquery/jquery-3.4.0.js"></script>
-</head>
+<head th:insert="fragments/fragments.html :: headerfiles"></head>
 
 <body>
 	<header th:insert="fragments/fragments.html :: header"> </header>
@@ -27,16 +16,16 @@
 					<a href="#" class="list-group-item active">Fish</a>
 					<ul class="list-group">
 						<li th:inline="text" class="list-group-item">Freshwater <span
-								class="label label-primary pull-right">[[${organizedProducts.numOfFreshWaterFish}]]</span>
+							class="label label-primary pull-right">[[${organizedProducts.numOfFreshWaterFish}]]</span>
 						</li>
 						<li th:inline="text" class="list-group-item">Saltwater <span
-								class="label label-success pull-right">[[${organizedProducts.numOfSaltWaterFish}]]</span>
+							class="label label-success pull-right">[[${organizedProducts.numOfSaltWaterFish}]]</span>
 						</li>
 						<li th:inline="text" class="list-group-item">Crabs<span
-								class="label label-danger pull-right">[[${organizedProducts.numOfCrabs}]]</span>
+							class="label label-danger pull-right">[[${organizedProducts.numOfCrabs}]]</span>
 						</li>
 						<li th:inline="text" class="list-group-item">Pond <span
-								class="label label-danger pull-right">[[${organizedProducts.numOfPondFish}]]</span>
+							class="label label-danger pull-right">[[${organizedProducts.numOfPondFish}]]</span>
 						</li>
 					</ul>
 				</div>
@@ -45,10 +34,10 @@
 					</a>
 					<ul class="list-group">
 						<li th:inline="text" class="list-group-item">Freshwater <span
-								class="label label-danger pull-right">[[${organizedProducts.numOfFreshWaterPlants}]]</span>
+							class="label label-danger pull-right">[[${organizedProducts.numOfFreshWaterPlants}]]</span>
 						</li>
 						<li class="list-group-item">Pond <span
-								class="label label-success pull-right">[[${organizedProducts.numOfPondPlants}]]</span>
+							class="label label-success pull-right">[[${organizedProducts.numOfPondPlants}]]</span>
 						</li>
 					</ul>
 				</div>
@@ -56,16 +45,16 @@
 					<a href="#" class="list-group-item active">Other </a>
 					<ul class="list-group">
 						<li th:inline="text" class="list-group-item">Tanks <span
-								class="label label-warning pull-right">[[${organizedProducts.numOfTanks}]]</span>
+							class="label label-warning pull-right">[[${organizedProducts.numOfTanks}]]</span>
 						</li>
 						<li th:inline="text" class="list-group-item">Food <span
-								class="label label-success pull-right">[[${organizedProducts.numOfFoodItems}]]</span>
+							class="label label-success pull-right">[[${organizedProducts.numOfFoodItems}]]</span>
 						</li>
 						<li th:inline="text" class="list-group-item">Filters <span
-								class="label label-success pull-right">[[${organizedProducts.numOfFilterItems}]]</span>
+							class="label label-success pull-right">[[${organizedProducts.numOfFilterItems}]]</span>
 						</li>
 						<li th:inline="text" class="list-group-item">CO2 <span
-								class="label label-success pull-right">[[${organizedProducts.numOfCo2Items}]]</span>
+							class="label label-success pull-right">[[${organizedProducts.numOfCo2Items}]]</span>
 						</li>
 					</ul>
 				</div>
@@ -81,17 +70,19 @@
 				<div class="row">
 					<div th:each="product : ${organizedProducts.fishProducts}"
 						class="col-md-4 text-center col-sm-6 col-xs-6">
-						<div class="thumbnail product-box" th:with="quantity = ${product.quantity}">
-							<img th:src="@{/photos/{imgName}(imgName=${product.title+'.jpg'})}"
+						<div class="thumbnail product-box"
+							th:with="quantity = ${product.quantity}">
+							<img
+								th:src="@{/photos/{imgName}(imgName=${product.title+'.jpg'})}"
 								alt="${product.title}" />
 							<div class="caption">
 								<h3>
 									<a th:text="${product.title}" href="#">Product name</a>
 								</h3>
-								<p th:text="| ${product.price} â‚¬ |">Price goes here</p>
+								<p th:text="| ${product.price} € |">Price goes here</p>
 
-								<input class="form-control" type="number" value="0" min="0" th:max="${quantity}"
-									id="example-number-input"> <br>
+								<input class="form-control" type="number" value="0" min="0"
+									th:max="${quantity}" id="example-number-input"> <br>
 								<p>
 									<a href="#" class="btn btn-success" role="button">Add To
 										Cart</a> <a href="#" class="btn btn-primary" role="button">See
@@ -129,7 +120,7 @@
 								<h3>
 									<a th:text="${product.title}">Product name here</a>
 								</h3>
-								<p th:text="| ${product.price} â‚¬ |">Price goes here</p>
+								<p th:text="| ${product.price} € |">Price goes here</p>
 								<input class="form-control" type="number" value="0" min="0"
 									th:max="${quantity}" id="example-number-input"> <br>
 								<p>
@@ -169,7 +160,7 @@
 								<h3>
 									<a th:text="${product.title}">Product name</a>
 								</h3>
-								<p th:text="| ${product.price} â‚¬ |">Price goes here</p>
+								<p th:text="| ${product.price} € |">Price goes here</p>
 								<input class="form-control" type="number" value="0" min="0"
 									th:max="${quantity}" id="example-number-input"> <br>
 								<p>
@@ -193,86 +184,6 @@
 			</div>
 		</div>
 	</div>
-
-
-	<!-- LOGIN MODAL -->
-	<div th:insert="fragments/fragments.html :: loginModal">
-
-	</div>
-	<script>
-		$(document).ready(function () {
-
-			$('#loginButton').on('click', function () {
-				$('#loginModal').modal('toggle');
-
-				$('#loginForm').submit(function (event) {
-
-					var formData = {
-						'username': $('#username').val(),
-						'password': $('#password').val()
-					};
-
-					var loginUrl = '/login';
-
-					$.ajax({
-						type: 'POST',
-						contentType: "application/json",
-						data: JSON.stringify(formData),
-						url: loginUrl,
-						success: function (loginResponse) {
-							console.log('success block');
-							var user = loginResponse.user;
-
-							console.log(user.id);
-							console.log(user.username);
-
-							console.log('isValidated: ' + loginResponse.validated);
-							console.log('isAttemptedLogin: ' + loginResponse.attemptedLogin);
-							if (!loginResponse.validated) {
-								console.log('User not in database!')
-								console.log('Error message: ' + loginResponse.message);
-								console.log('User object: ' + loginResponse.user);
-
-								// new try
-								$('.modal-header').html(loginResponse.message);
-								$('#loginModal').modal('show');
-							} else {
-								console.log('SUCCESSFUL LOGIN');
-								console.log('Message: ' + loginResponse.message);
-								$('.modal-header').html(loginResponse.message);
-								$('.modal-body').hide();
-								$('.modal-footer').hide();
-								$('#loginButton').hide();
-								$('#signupButton').hide();
-								$('#logoutButton').show();
-								$('#userButton').show();
-							}
-							$('#loginModal').modal('show');
-						},
-						error: function (payload) {
-							console.log('error block');
-							console.log('this is the URL: ' + loginUrl);
-							console.log('this is the formData: ');
-							console.log(formData);
-							console.log(payload.message);
-							alert('Something went wrong!');
-
-						}
-					});
-					event.preventDefault();
-				});
-			});
-		});
-
-		// CSRF !!!
-		// var token = $("meta[name='_csrf']").attr("content");
-		// var header = $("meta[name='_csrf_header']").attr("content");
-
-		// $(document).ajaxSend(function (e, xhr, options) {
-		// 	xhr.setRequestHeader(header, token);
-		// });
-	</script>
-
-
+	
 </body>
 </html>
