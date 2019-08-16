@@ -1,6 +1,5 @@
 package org.ogorodin.entity.helpers.login;
 
-import org.ogorodin.entity.Users;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /*

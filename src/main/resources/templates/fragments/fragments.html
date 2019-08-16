@@ -4,9 +4,11 @@
 	lang="eng">
 
 <head th:fragment="headerfiles">
-    <title>* F I S H - S H O P *</title>
-    <meta charset="UTF-8"/>
-    <link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet">
+<title>* F I S H - S H O P *</title>
+<meta charset="UTF-8" />
+<link
+	th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"
+	rel="stylesheet">
 </head>
 
 <body>
@@ -17,27 +19,24 @@
 				<div class="navbar-header">
 					<a class="navbar-brand" href="/home"><strong>FISH</strong> Shop</a>
 				</div>
-				<div class="collapse navbar-collapse"
-					id="bs-example-navbar-collapse-1">
+				<div sec:authentication="">
+					<ul class="nav navbar-nav navbar-left">
+						<li sec:authorize="!isAnonymous()">
+							<a th:text="${'Hello, ' + #authentication.principal.username}"
+								id="userButton" class="btn">Greet user here.</a>
+						</li>
+						<li>
+							<a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn">Logout</a>
+						</li>
+					</ul>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="cart">Cart</a></li>
-						<!-- id="loginButton" // pulled out -->
-						<li><a sec:authorize="!isAuthenticated()" type="button"
-							th:onclick="@{location.href='/login'}" data-toggle="modal"
-							class="btn">Login</a></li>
-						<li><a sec:authorize="isAuthenticated()" id="logoutButton"
-							th:href="@{/logout}">Logout</a></li>
-						<li><a sec:authentication="name" id="userButton" class="btn"></a></li>
-						<li><p>Welcome, </p><p sec:authentication="name">Welcome, guest!</p></li>
+						<li>
+							<a sec:authorize="isAnonymous()" th:onclick="@{location.href='/login'}" type="button" class="btn">Login</a>
+						</li>
 					</ul>
-					<form class="navbar-form navbar-right" role="search">
-						<div class="form-group">
-							<input type="text" placeholder="UNRESPONSIVE!"
-								class="form-control">
-						</div>
-						&nbsp;
-						<button type="submit" class="btn btn-primary">Search</button>
-					</form>
 				</div>
 			</div>
 		</nav>

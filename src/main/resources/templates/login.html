@@ -4,33 +4,26 @@
 	<title>Login</title>
 </head>
 <body>
-	<div th:insert="fragments/fragments :: header">
-	</div>
-
+	<div th:insert="fragments/fragments :: header"></div>
 	<div class="container">
-		<div
-			style="width: 660px; margin-left: auto; margin-right: auto; margin-top: 24px; padding: 24px;">
+		<div style="width: 660px; margin-left: auto; margin-right: auto; margin-top: 24px; padding: 24px;">
 			<div class="card">
 				<div class="card-header">
 					<i class="fa fa-user">Please Login</i>
 				</div>
 				<div class="card-block" style="padding: 24px;">
-					<form name="f" th:action="@{/login}" method="POST">
+					<form th:action="@{/login}" method="POST">
 						<fieldset>
-							<!-- Thymeleaf + Spring Security error display -->
-							<div th:if="${param.error}" class="alert alert-danger">
-								Invalid username and password</div>
-							<div th:if="${param.logout}" class="alert alert-success">
-								You have been logged out.</div>
-
+							<div th:if="${param.error}" class="alert alert-danger">Invalid username and password</div>
+							<div th:if="${param.logout}" class="alert alert-success">You have been logged out.</div>
 							<!-- Login controls -->
 							<div class="form-group">
-								<label for="username">Username</label> <input type="text"
-									class="form-control" id="username" name="username">
+								<label for="username">Username</label>
+								<input type="text" class="form-control" id="username" name="username">
 							</div>
 							<div class="form-group">
-								<label for="password">Password</label> <input type="password"
-									class="form-control" id="password" name="password">
+								<label for="password">Password</label>
+								<input type="password" class="form-control" id="password" name="password">
 							</div>
 							<!-- Login Button -->
 							<div class="form-actions" style="margin-top: 12px;">
@@ -41,7 +34,6 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 
 </body>
