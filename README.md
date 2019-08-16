@@ -10,9 +10,8 @@ Web-shop which offers different types of products for aquarium enthusiasts. It i
 To run this application you will need:
 * Java - JRE 1.8 or higher
 * MySQL
-* Run the script for the database model (provided in one of the packages inside the project)
+* Run the scripts for the database model (/resources/static/db related)
 * Check out the application.properties file to make sure you are all set up, or optionally change the properties file as you wish/need to run this app
-
 
 ## Usage
 

@@ -12,28 +12,28 @@ import org.springframework.security.core.userdetails.UserDetails;
 @SuppressWarnings("serial")
 public class UsersPrincipal implements UserDetails {
 
-	private Users user;
+	private Users _user;
 
 	public UsersPrincipal(Users user) {
-		this.user = user;
+		this._user = user;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(user.getRole().toString());
+		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(_user.getRole().toString());
 		authorities.add(grantedAuthority);
 		return authorities;
 	}
 
 	@Override
 	public String getPassword() {
-		return user.getPassword();
+		return _user.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		return user.getUsername();
+		return _user.getUsername();
 	}
 
 	@Override

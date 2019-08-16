@@ -23,6 +23,11 @@ public class UsersService implements IUsersService {
 	public Optional<Users> findUserById(Integer id) {
 		return _repository.findById(id);
 	}
+	
+	@Override
+	public Users findUserByUsername(String username) {
+		return _repository.findByUsername(username);
+	}
 
 	@Override
 	public boolean addOrUpdateUser(Users user) {
@@ -53,5 +58,7 @@ public class UsersService implements IUsersService {
 			String email) {
 		_repository.updateEmployeeWithDetails(id, firstName, lastName, address, username, email);
 	}
+
+
 
 }

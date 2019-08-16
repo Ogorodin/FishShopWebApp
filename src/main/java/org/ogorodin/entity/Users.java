@@ -60,7 +60,7 @@ public class Users {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -103,6 +103,12 @@ public class Users {
 
 	public void setInfo(UserInfo info) {
 		this.info = info;
+	}
+
+	@Override
+	public String toString() {
+		return "Users [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", roles="
+				+ roles + ", info=" + info + ", orders=" + orders + "]";
 	}
 
 }

@@ -10,6 +10,8 @@ public interface IUsersService {
 	public Iterable<Users> getAllUsers();
 
 	public Optional<Users> findUserById(Integer id);
+	
+	public Users findUserByUsername(String username);
 
 	public boolean addOrUpdateUser(Users user);
 
@@ -22,5 +24,7 @@ public interface IUsersService {
 
 	public void updateEmployeeWithDetails(int id, String firstName, String lastName, String address, String username,
 			String email);
+	
+	
 
 }
