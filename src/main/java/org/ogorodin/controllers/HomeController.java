@@ -5,7 +5,8 @@ import java.util.List;
 import org.ogorodin.entity.helpers.Converter;
 import org.ogorodin.entity.helpers.ProductForHomeView;
 import org.ogorodin.entity.helpers.ProductsOrganizer;
-import org.ogorodin.entity.helpers.login.LoginResponse;
+import org.ogorodin.entity.helpers.UserDTO;
+import org.ogorodin.services.DTOService;
 import org.ogorodin.services.web.IProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
@@ -19,8 +20,12 @@ public class HomeController {
 	@Autowired
 	private IProductsService _productsService;
 
+	@Autowired
+	private DTOService _dtoService;
+
 	@GetMapping({ "", "/", "/index", "/home" })
 	public ModelAndView showHomePage() {
+
 		ModelAndView modelAndView = new ModelAndView();
 
 		Converter converter = new Converter();
@@ -44,9 +49,11 @@ public class HomeController {
 		modelAndView.addObject("maxPlants", plantsPagedList.getPageCount());
 		modelAndView.addObject("maxOther", otherPagedList.getPageCount());
 		
-		// object needed for eventual login try
-		modelAndView.addObject("loginResponse", new LoginResponse(true)); 
-		
+		UserDTO userDTO = _dtoService.getUserDTO();
+		if(userDTO != null) {
+			modelAndView.addObject("userDTO", userDTO);
+		}
+
 		modelAndView.setViewName("index");
 		return modelAndView;
 	}

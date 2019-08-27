@@ -7,7 +7,7 @@
 <title>* F I S H - S H O P *</title>
 <meta charset="UTF-8" />
 <link
-	th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"
+	th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css}"
 	rel="stylesheet">
 </head>
 
@@ -23,18 +23,23 @@
 					<ul class="nav navbar-nav navbar-left">
 						<li sec:authorize="!isAnonymous()">
 							<a th:text="${'Hello, ' + #authentication.principal.username}"
-								id="userButton" class="btn">Greet user here.</a>
-						</li>
+							id="userButton" class="btn">Greet user here.</a>
+							<p th:text="${userDTO.lastName}">TEST PRINCIPAL</p>
+							<p th:text="${userDTO.address}">TEST ADDRESS</p>
+							<p th:text="${userDTO.password}">Test password</p>
+							<p th:text="${userDTO.listOfProducts}">test list</p>
 						<li>
-							<a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn">Logout</a>
+							<a sec:authorize="isAuthenticated()" th:href="@{/logout}"
+							class="btn">Logout</a>
 						</li>
 					</ul>
 				</div>
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="cart">Cart</a></li>
-						<li>
-							<a sec:authorize="isAnonymous()" th:onclick="@{location.href='/login'}" type="button" class="btn">Login</a>
+						<li><a sec:authorize="isAnonymous()"
+							th:onclick="@{location.href='/login'}" type="button" class="btn">Login</a>
 						</li>
 					</ul>
 				</div>

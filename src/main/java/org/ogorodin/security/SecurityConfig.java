@@ -17,7 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	private UserPrincipalDetailsService userPrincipalDetailsService;
+	private UserPrincipalDetailsService _userPrincipalDetailsService;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
 		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-		daoAuthenticationProvider.setUserDetailsService(this.userPrincipalDetailsService);
+		daoAuthenticationProvider.setUserDetailsService(this._userPrincipalDetailsService);		
 		return daoAuthenticationProvider;		
 	}
 

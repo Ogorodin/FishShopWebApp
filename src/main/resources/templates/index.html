@@ -4,7 +4,10 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	lang="eng">
 
-<head th:insert="fragments/fragments.html :: headerfiles"></head>
+<head th:insert="fragments/fragments.html :: headerfiles">
+<link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css}"
+	rel="stylesheet">
+</head>
 
 <body>
 	<header th:insert="fragments/fragments.html :: header"> </header>
@@ -184,6 +187,6 @@
 			</div>
 		</div>
 	</div>
-	
+
 </body>
 </html>
