@@ -9,6 +9,7 @@ import org.ogorodin.entity.Users.ERole;
 
 public class UserDTO {
 
+	private int _id;
 	private String _username;
 	private String _password;
 	private String _firstName;
@@ -17,6 +18,14 @@ public class UserDTO {
 	private ERole _role;
 
 	private List<Products> _listOfProducts;
+
+	public int getId() {
+		return _id;
+	}
+
+	public void setId(int id) {
+		this._id = id;
+	}
 
 	public String getUsername() {
 		return _username;
@@ -79,9 +88,9 @@ public class UserDTO {
 
 	@Override
 	public String toString() {
-		return "UserDTO [_username=" + _username + ", _password=" + _password + ", _firstName=" + _firstName
-				+ ", _lastName=" + _lastName + ", _address=" + _address + ", _role=" + _role + ", _listOfProducts="
-				+ _listOfProducts + "]";
+		return "UserDTO [id=" + _id + ", username=" + _username + ", password=" + _password + ", firstName="
+				+ _firstName + ", lastName=" + _lastName + ", address=" + _address + ", role=" + _role
+				+ ", listOfProducts=" + _listOfProducts + "]";
 	}
 
 }

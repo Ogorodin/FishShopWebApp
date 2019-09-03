@@ -17,8 +17,8 @@ public class LoginController {
 
 	@GetMapping("/login")
 	public ModelAndView login() {
-		ModelAndView model = new ModelAndView("login");
-		return model;
+		ModelAndView modelAndView = new ModelAndView("login");
+		return modelAndView;
 	}
 
 }

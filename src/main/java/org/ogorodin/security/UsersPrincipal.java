@@ -12,11 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 @SuppressWarnings("serial")
 public class UsersPrincipal implements UserDetails {
 
-//	private Users _user;
 	private UserDTO _userDTO;
 
 	public UsersPrincipal(UserDTO userDTO) {
-//		this._user = user;
 		this._userDTO = userDTO;
 	}
 

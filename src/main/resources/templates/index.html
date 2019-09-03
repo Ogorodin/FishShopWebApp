@@ -5,63 +5,20 @@
 	lang="eng">
 
 <head th:insert="fragments/fragments.html :: headerfiles">
-<link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css}"
+<link
+	th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css}"
 	rel="stylesheet">
+<meta charset="UTF-8" />
 </head>
 
 <body>
 	<header th:insert="fragments/fragments.html :: header"> </header>
+
 	<div id="homeView" class="container">
 		<div class="row">
 			<!-- Organized products, menu on the left -->
-			<div class="col-md-3">
-				<div th:if="${organizedProducts.fishProducts.size()>0}">
-					<a href="#" class="list-group-item active">Fish</a>
-					<ul class="list-group">
-						<li th:inline="text" class="list-group-item">Freshwater <span
-							class="label label-primary pull-right">[[${organizedProducts.numOfFreshWaterFish}]]</span>
-						</li>
-						<li th:inline="text" class="list-group-item">Saltwater <span
-							class="label label-success pull-right">[[${organizedProducts.numOfSaltWaterFish}]]</span>
-						</li>
-						<li th:inline="text" class="list-group-item">Crabs<span
-							class="label label-danger pull-right">[[${organizedProducts.numOfCrabs}]]</span>
-						</li>
-						<li th:inline="text" class="list-group-item">Pond <span
-							class="label label-danger pull-right">[[${organizedProducts.numOfPondFish}]]</span>
-						</li>
-					</ul>
-				</div>
-				<div th:if="${organizedProducts.plantProducts.size()>0}">
-					<a href="#" class="list-group-item active list-group-item-success">Plants
-					</a>
-					<ul class="list-group">
-						<li th:inline="text" class="list-group-item">Freshwater <span
-							class="label label-danger pull-right">[[${organizedProducts.numOfFreshWaterPlants}]]</span>
-						</li>
-						<li class="list-group-item">Pond <span
-							class="label label-success pull-right">[[${organizedProducts.numOfPondPlants}]]</span>
-						</li>
-					</ul>
-				</div>
-				<div th:if="${organizedProducts.otherProducts.size()>0}">
-					<a href="#" class="list-group-item active">Other </a>
-					<ul class="list-group">
-						<li th:inline="text" class="list-group-item">Tanks <span
-							class="label label-warning pull-right">[[${organizedProducts.numOfTanks}]]</span>
-						</li>
-						<li th:inline="text" class="list-group-item">Food <span
-							class="label label-success pull-right">[[${organizedProducts.numOfFoodItems}]]</span>
-						</li>
-						<li th:inline="text" class="list-group-item">Filters <span
-							class="label label-success pull-right">[[${organizedProducts.numOfFilterItems}]]</span>
-						</li>
-						<li th:inline="text" class="list-group-item">CO2 <span
-							class="label label-success pull-right">[[${organizedProducts.numOfCo2Items}]]</span>
-						</li>
-					</ul>
-				</div>
-			</div>
+			<div th:insert="fragments/fragments.html :: products-list-left"></div>
+
 			<div class="col-md-9">
 				<!-- Fish row begins -->
 				<div>
@@ -71,26 +28,30 @@
 					</ol>
 				</div>
 				<div class="row">
-					<div th:each="product : ${organizedProducts.fishProducts}"
-						class="col-md-4 text-center col-sm-6 col-xs-6">
-						<div class="thumbnail product-box"
-							th:with="quantity = ${product.quantity}">
-							<img
-								th:src="@{/photos/{imgName}(imgName=${product.title+'.jpg'})}"
+					<div th:each="product : ${organizedProducts.fishProducts}" th:with="productId = ${product.id}"
+						class="col-md-4 text-center col-sm-6 col-xs-6">		
+						
+												
+						<div class="thumbnail product-box" th:with="quantity = ${product.quantity}">
+							<img th:src="@{/photos/{imgName}(imgName=${product.title+'.jpg'})}"
 								alt="${product.title}" />
 							<div class="caption">
-								<h3>
-									<a th:text="${product.title}" href="#">Product name</a>
-								</h3>
-								<p th:text="| ${product.price} € |">Price goes here</p>
-
-								<input class="form-control" type="number" value="0" min="0"
-									th:max="${quantity}" id="example-number-input"> <br>
-								<p>
-									<a href="#" class="btn btn-success" role="button">Add To
-										Cart</a> <a href="#" class="btn btn-primary" role="button">See
-										Details</a>
-								</p>
+								<h3><a th:text="${product.title}" href="#">Product name</a></h3>
+								<p th:text="| ${product.price} â‚¬ |">Price goes here</p>
+								
+								
+								
+								<form th:action="@{/addToCart}">
+									<p th:text="${productId}"></p>
+									<input class="form-control" type="number" value="0" min="0"
+										th:max="${quantity}" id="qtyInCart" name="qtyInCart">
+									<input type="hidden" id="productId" name="productId" th:value="*{productId}" />
+									<br>
+									<button type="submit" class="btn btn-success">Add To Cart</button>
+								
+								</form>
+								
+								
 							</div>
 						</div>
 					</div>
@@ -123,7 +84,7 @@
 								<h3>
 									<a th:text="${product.title}">Product name here</a>
 								</h3>
-								<p th:text="| ${product.price} € |">Price goes here</p>
+								<p th:text="| ${product.price} â‚¬ |">Price goes here</p>
 								<input class="form-control" type="number" value="0" min="0"
 									th:max="${quantity}" id="example-number-input"> <br>
 								<p>
@@ -163,7 +124,7 @@
 								<h3>
 									<a th:text="${product.title}">Product name</a>
 								</h3>
-								<p th:text="| ${product.price} € |">Price goes here</p>
+								<p th:text="| ${product.price} â‚¬ |">Price goes here</p>
 								<input class="form-control" type="number" value="0" min="0"
 									th:max="${quantity}" id="example-number-input"> <br>
 								<p>
