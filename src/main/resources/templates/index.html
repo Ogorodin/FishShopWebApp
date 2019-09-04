@@ -28,30 +28,21 @@
 					</ol>
 				</div>
 				<div class="row">
-					<div th:each="product : ${organizedProducts.fishProducts}" th:with="productId = ${product.id}"
-						class="col-md-4 text-center col-sm-6 col-xs-6">		
-						
-												
+					<div th:each="product : ${organizedProducts.fishProducts}"
+						class="col-md-4 text-center col-sm-6 col-xs-6">
 						<div class="thumbnail product-box" th:with="quantity = ${product.quantity}">
 							<img th:src="@{/photos/{imgName}(imgName=${product.title+'.jpg'})}"
 								alt="${product.title}" />
 							<div class="caption">
 								<h3><a th:text="${product.title}" href="#">Product name</a></h3>
 								<p th:text="| ${product.price} € |">Price goes here</p>
-								
-								
-								
-								<form th:action="@{/addToCart}">
-									<p th:text="${productId}"></p>
+								<form th:action="@{/cart/addToCart}" th:method="GET">
 									<input class="form-control" type="number" value="0" min="0"
 										th:max="${quantity}" id="qtyInCart" name="qtyInCart">
-									<input type="hidden" id="productId" name="productId" th:value="*{productId}" />
+									<input type="hidden" id="productId" name="productId" th:value="*{product.id}" />
 									<br>
 									<button type="submit" class="btn btn-success">Add To Cart</button>
-								
 								</form>
-								
-								
 							</div>
 						</div>
 					</div>
