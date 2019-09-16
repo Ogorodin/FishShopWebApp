@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ogorodin.entity.Products;
-import org.ogorodin.entity.Users;
 import org.ogorodin.entity.Products.EProductType;
-import org.ogorodin.entity.helpers.UserDTO;
+import org.ogorodin.entity.Users;
+import org.ogorodin.entity.helpers.dtos.UserDTO;
 import org.ogorodin.services.web.IUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class DTOService implements IDtoService {
 	}
 
 	@Override
-	public UserDTO convertToDTO(String username) {
+	public UserDTO convertToUserDTO(String username) {
 		_userDto = new UserDTO();
 		Users user = _usersService.findUserByUsername(username);
 

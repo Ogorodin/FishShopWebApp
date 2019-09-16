@@ -1,11 +1,12 @@
 package org.ogorodin.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.ogorodin.entity.helpers.Converter;
 import org.ogorodin.entity.helpers.ProductForHomeView;
 import org.ogorodin.entity.helpers.ProductsOrganizer;
-import org.ogorodin.entity.helpers.UserDTO;
+import org.ogorodin.entity.helpers.dtos.UserDTO;
 import org.ogorodin.services.DTOService;
 import org.ogorodin.services.web.IProductsService;
 import org.springframework.beans.factory.annotation.Autowired;

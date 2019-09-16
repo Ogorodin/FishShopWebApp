@@ -19,18 +19,12 @@ import org.ogorodin.entity.Products.EProductType;
 
 @Entity
 @Table(name = "stock")
-@SqlResultSetMapping(
-		name="ProductForHomeViewMapping",
-		classes={
-		@ConstructorResult(
-		targetClass=org.ogorodin.entity.helpers.ProductForHomeView.class,
-		columns={
-		@ColumnResult(name="id", type=Integer.class),
-		@ColumnResult(name="title", type=String.class),
-		@ColumnResult(name="productType", type=EProductType.class),
-		@ColumnResult(name="price", type=Long.class),
-		@ColumnResult(name="quantity", type=String.class)
-		})})
+@SqlResultSetMapping(name = "ProductForHomeViewMapping", classes = {
+		@ConstructorResult(targetClass = org.ogorodin.entity.helpers.ProductForHomeView.class, columns = {
+				@ColumnResult(name = "id", type = Integer.class), @ColumnResult(name = "title", type = String.class),
+				@ColumnResult(name = "productType", type = EProductType.class),
+				@ColumnResult(name = "price", type = Long.class),
+				@ColumnResult(name = "quantity", type = String.class) }) })
 public class Stock {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -97,6 +91,12 @@ public class Stock {
 
 	public void setProduct(Products product) {
 		this.product = product;
+	}
+
+	@Override
+	public String toString() {
+		return "Stock [id=" + id + ", price=" + price + ", quantity=" + quantity + ", priceDate=" + priceDate
+				+ ", product=" + product + "]";
 	}
 
 }

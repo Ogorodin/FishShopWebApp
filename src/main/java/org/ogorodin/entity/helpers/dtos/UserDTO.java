@@ -1,4 +1,4 @@
-package org.ogorodin.entity.helpers;
+package org.ogorodin.entity.helpers.dtos;
 
 import java.util.ArrayList;
 import java.util.List;

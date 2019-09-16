@@ -1,6 +1,6 @@
 package org.ogorodin.security;
 
-import org.ogorodin.entity.helpers.UserDTO;
+import org.ogorodin.entity.helpers.dtos.UserDTO;
 import org.ogorodin.repository.IUsersRepository;
 import org.ogorodin.services.IDtoService;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +23,7 @@ public class UserPrincipalDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		System.err.println("In loadUserByUsername - user principal details service");
 		// Users user = _usersRepository.findByUsername(username);
-		UserDTO userDTO = _dtoService.convertToDTO(username);
+		UserDTO userDTO = _dtoService.convertToUserDTO(username);
 		System.err.println(userDTO);
 		System.err.println("In userPrincipalDetailsSerrvice.java");
 		UsersPrincipal userPrincipal = new UsersPrincipal(userDTO);

@@ -1,10 +1,9 @@
 package org.ogorodin.services;
 
-import org.ogorodin.entity.helpers.UserDTO;
-import org.springframework.stereotype.Service;
+import org.ogorodin.entity.helpers.dtos.UserDTO;
 
 public interface IDtoService {
 	
-	public UserDTO convertToDTO(String username);
+	public UserDTO convertToUserDTO(String username);
 
 }
