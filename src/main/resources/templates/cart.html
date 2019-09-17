@@ -29,11 +29,13 @@
 							<th style="width: 10%">Price</th>
 							<th style="width: 8%">Quantity</th>
 							<th style="width: 22%" class="text-center">Subtotal</th>
-							<th style="width: 10%"></th>
+							<th style="width: 5%"></th>
+							<th style="width: 5%"></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="productDTO : ${productAndQtyPairs}">
+						<tr th:each="productDTO : ${productAndQtyPairs}"
+							th:with="productID=${productDTO.key.id}, quantity=${productDTO.value}" >
 							<td>
 								<div class="row">
 									<div class="col-sm-2 hidden-xs">
@@ -50,19 +52,28 @@
 							<td><p th:text="${'$ ' + productDTO.key.price}">$ xxx</p></td>
 							<!-- quantity -->
 							<td>
-								<input type="number"  th:value="${productDTO.value}"
+								<input type="number"  th:value="${quantity}" id="qty" name="qty"
 									class="form-control text-center">
 							</td>
 							<!-- subtotal -->
 							<td th:text="${productDTO.key.subtotal}" class="text-center">$ xxx</td>
-							<!-- refresh delete product -->
+							<!-- refresh cart -->
 							<td>
-								<button class="btn btn-info btn-sm">
-									<i class="fa fa-refresh"></i>
-								</button>
-								<button class="btn btn-danger btn-sm">
-									<i class="fa fa-trash-o"></i>
-								</button>
+								<form th:action="@{/cart/refreshCartView}">
+									<input type="hidden" value="#{qty}"/>
+									<button type="submit" class="btn btn-info btn-sm">
+										<i class="fa fa-refresh"></i>
+									</button>
+								</form>
+							</td>
+							<!-- delete product -->
+							<td>
+								<form th:action="@{/cart/deleteProduct}">
+								<input type="hidden" th:value="${productID}" name="productId" id="productId" />
+									<button type="submit" class="btn btn-danger btn-sm">
+										<i class="fa fa-trash-o"></i>
+									</button>
+								</form>
 							</td>
 						</tr>
 					</tbody>
@@ -77,9 +88,15 @@
 							</td>
 							<td colspan="2" class="hidden-xs"></td>
 							<td class="hidden-xs text-center"><strong>Total $1.99</strong></td>
-							<td><a th:href="@{/checkout}" class="btn btn-success btn-block"> Checkout
+							<td>
+							</td>
+							<td>
+								<a th:href="@{/checkout}" class="btn btn-success btn-block"> Checkout
 									<i class="fa fa-angle-right"></i>
 								</a>
+							</td>
+							<td>
+								
 							</td>
 						</tr>
 					</tfoot>

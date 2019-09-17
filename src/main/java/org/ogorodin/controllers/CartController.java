@@ -44,7 +44,7 @@ public class CartController {
 		Products product = _productsService.findById(productId).orElse(null);
 		//
 		double productPrice = product.getStock().get(0).getPrice();
-		
+
 		//
 		ProductDTO productDto = new ProductDTO();
 		if (product != null) {
@@ -73,7 +73,7 @@ public class CartController {
 				int newQty = (_productIdAndQtyPairs.get(tempDto) + qtyInCart);
 				tempDto.setSubtotal(newQty * productDto.getPrice());
 				_productIdAndQtyPairs.put(tempDto, newQty);
-				
+
 			} else {
 				_productIdAndQtyPairs.put(productDto, qtyInCart);
 			}
@@ -85,6 +85,28 @@ public class CartController {
 		_modelAndView.addObject("productIdAndQtyPairs", _productIdAndQtyPairs);
 
 		_modelAndView.setViewName("redirect:/");
+		return _modelAndView;
+	}
+
+	@GetMapping("/refreshCartView")
+	public ModelAndView refreshCartView(@ModelAttribute UserDTO UserDTO, @RequestParam String qty,
+			@ModelAttribute HashMap<Products, Integer> productAndQtyPairs) {
+		System.out.println("NEW QTY: " + qty);
+		return _modelAndView;
+	}
+
+	@GetMapping("/deleteProduct")
+	public ModelAndView deleteProduct(@ModelAttribute UserDTO UserDTO, @RequestParam int productId) {
+		ProductDTO tempProduct = null;
+		for (ProductDTO product : _productIdAndQtyPairs.keySet()) {
+			if (productId == product.getId()) {
+				tempProduct = product;
+			}
+		}
+		if (tempProduct != null) {
+			_productIdAndQtyPairs.remove(tempProduct);
+		}
+		_modelAndView.setViewName("redirect:/cart");
 		return _modelAndView;
 	}
 }
