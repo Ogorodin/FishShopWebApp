@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.ogorodin.entity.Products;
 import org.ogorodin.entity.Users.ERole;
-import org.springframework.stereotype.Component;
 
 public class UserDTO {
 

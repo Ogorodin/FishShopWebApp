@@ -1,13 +1,12 @@
 package org.ogorodin.controllers;
 
 import java.util.List;
-import java.util.Map;
 
 import org.ogorodin.entity.helpers.Converter;
 import org.ogorodin.entity.helpers.ProductForHomeView;
 import org.ogorodin.entity.helpers.ProductsOrganizer;
 import org.ogorodin.entity.helpers.dtos.UserDTO;
-import org.ogorodin.services.DTOService;
+import org.ogorodin.services.IDtoService;
 import org.ogorodin.services.web.IProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
@@ -20,21 +19,20 @@ public class HomeController {
 
 	@Autowired
 	private IProductsService _productsService;
-
 	@Autowired
-	private DTOService _dtoService;
+	private IDtoService _dtoService;
+
+	private ModelAndView _modelAndView = new ModelAndView("index");
 
 	@GetMapping({ "", "/", "/index", "/home" })
 	public ModelAndView showHomePage() {
-
-		ModelAndView modelAndView = new ModelAndView();
 
 		Converter converter = new Converter();
 		List<ProductForHomeView> listOfProducts = converter
 				.convertToProductForHomeView(_productsService.getProductsInfoForTheHomePage());
 
 		ProductsOrganizer organizedProducts = new ProductsOrganizer(listOfProducts);
-		modelAndView.addObject("organizedProducts", organizedProducts);
+		_modelAndView.addObject("organizedProducts", organizedProducts);
 
 		// pagination part // UNDER CONSTRUCTION // got stuck
 		PagedListHolder<ProductForHomeView> fishPagedList = new PagedListHolder<>(
@@ -46,17 +44,16 @@ public class HomeController {
 		PagedListHolder<ProductForHomeView> otherPagedList = new PagedListHolder<>(
 				(List<ProductForHomeView>) organizedProducts.otherProducts);
 		otherPagedList.setPageSize(3);
-		modelAndView.addObject("maxFishes", fishPagedList.getPageCount());
-		modelAndView.addObject("maxPlants", plantsPagedList.getPageCount());
-		modelAndView.addObject("maxOther", otherPagedList.getPageCount());
-		
+		_modelAndView.addObject("maxFishes", fishPagedList.getPageCount());
+		_modelAndView.addObject("maxPlants", plantsPagedList.getPageCount());
+		_modelAndView.addObject("maxOther", otherPagedList.getPageCount());
+
 		UserDTO userDTO = _dtoService.getUserDTO();
-		if(userDTO != null) {
-			modelAndView.addObject("userDTO", userDTO);
+		if (userDTO != null) {
+			_modelAndView.addObject("userDTO", userDTO);
 		}
 
-		modelAndView.setViewName("index");
-		return modelAndView;
+		return _modelAndView;
 	}
 
 }

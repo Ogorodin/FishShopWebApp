@@ -27,6 +27,7 @@
 						<li class="active">Fish</li>
 					</ol>
 				</div>
+				<!-- PRODUCT THUMBNAIL -->
 				<div class="row">
 					<div th:each="product : ${organizedProducts.fishProducts}"
 						class="col-md-4 text-center col-sm-6 col-xs-6">
@@ -40,8 +41,9 @@
 								<form th:action="@{/cart/addToCart}" th:method="GET">
 									<input class="form-control" type="number" value="0" min="0"
 										th:max="${quantity}" id="qtyInCart" name="qtyInCart">
-									<input type="hidden" id="productId" name="productId"
-										th:value="*{product.id}" /> <br>
+							 		<input  type="hidden" id="customerId" name="customerId"
+							 			sec:authorize="isAuthenticated()"  th:value="*{userDTO.id}" />
+									<input type="hidden" id="productId" name="productId" th:value="*{product.id}" /><br>
 									<button type="submit" class="btn btn-success">Add To Cart</button>									
 								</form>
 							</div>

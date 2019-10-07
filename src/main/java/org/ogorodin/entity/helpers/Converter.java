@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- * This class is used for converting... bla bla needs info
+ * This class is used for converting... needs more info
  */
 public class Converter {
 

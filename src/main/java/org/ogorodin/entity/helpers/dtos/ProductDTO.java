@@ -10,16 +10,9 @@ public class ProductDTO {
 	private String _description;
 	private double _price;
 	private double _subtotal;
+	private int _stock;
 
 	public ProductDTO() {
-	}
-
-	public ProductDTO(int id, String title, String description, double price, double subtotal) {
-		this._id = id;
-		this._title = title;
-		this._description = description;
-		this._price = price;
-		this._subtotal = subtotal;
 	}
 
 	public int getId() {
@@ -62,10 +55,18 @@ public class ProductDTO {
 		this._subtotal = subtotal;
 	}
 
+	public int getStock() {
+		return _stock;
+	}
+
+	public void setStock(int stock) {
+		this._stock = stock;
+	}
+
 	@Override
 	public String toString() {
-		return "ProductDTO [id=" + _id + ", title=" + _title + ", description=" + _description + ", price=" + _price
-				+ "]";
+		return "ProductDTO [_id=" + _id + ", _title=" + _title + ", _description=" + _description + ", _price=" + _price
+				+ ", _subtotal=" + _subtotal + ", _stock=" + _stock + "]";
 	}
 
 }

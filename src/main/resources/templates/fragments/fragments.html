@@ -21,18 +21,17 @@
 				</div>
 				<div sec:authentication="">
 					<ul class="nav navbar-nav navbar-left">
-						<li sec:authorize="!isAnonymous()"><a
-							th:text="${'Hello, ' + #authentication.principal.username}"
-							th:href="@{/profile?id=} + ${userDTO.id}" id="userButton"
-							class="btn">Greet user here.</a></li>
-						<li><a sec:authorize="isAuthenticated()" th:href="@{/logout}"
-							class="btn">Logout</a></li>
+						<li sec:authorize="!isAnonymous()">
+							<a  th:text="${'Hello, ' + #authentication.principal.username}"
+								th:href="@{/profile?id=} + ${userDTO.id}" id="userButton"
+								class="btn">Greet user here.
+							</a>
+						</li>
+						<li>
+							<a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn">Logout</a>
+						</li>
 					</ul>
 				</div>
-
-				<!-- THIS GETS PRINTED OUT FOR TRANSPARENCY -->
-				<!--  <p th:text="${userDTO}"></p> -->
-
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
@@ -45,7 +44,7 @@
 			</div>
 		</nav>
 	</div>
-
+	
 	<!-- ORGANIZED PRODUCTS LIST LEFT / HOME -->
 	<div th:fragment="products-list-left">
 		<div class="col-md-3">

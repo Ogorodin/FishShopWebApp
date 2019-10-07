@@ -1,12 +1,11 @@
 package org.ogorodin.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.ogorodin.entity.Products;
-import org.ogorodin.entity.Products.EProductType;
+import org.ogorodin.entity.Stock;
 import org.ogorodin.entity.Users;
+import org.ogorodin.entity.helpers.dtos.ProductDTO;
 import org.ogorodin.entity.helpers.dtos.UserDTO;
+import org.ogorodin.services.web.IProductsService;
 import org.ogorodin.services.web.IUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,15 +15,18 @@ public class DTOService implements IDtoService {
 
 	@Autowired
 	private IUsersService _usersService;
+	@Autowired
+	private IProductsService _productsService;
 
 	private UserDTO _userDto;
 
+	@Override
 	public UserDTO getUserDTO() {
 		return this._userDto;
 	}
 
 	@Override
-	public UserDTO convertToUserDTO(String username) {
+	public UserDTO convertUserToUserDTO(String username) {
 		_userDto = new UserDTO();
 		Users user = _usersService.findUserByUsername(username);
 
@@ -38,16 +40,23 @@ public class DTOService implements IDtoService {
 			_userDto.setAddress(user.getInfo().getAddress());
 			_userDto.setRole(user.getRole());
 		}
-
-		List<Products> products = new ArrayList<>();
-		products.add(new Products("Some fish", "some slipery fish", EProductType.FW_FISH));
-		products.add(new Products("Some crab", "some slipery crab", EProductType.CRAB_FISH));
-
-		_userDto.setListOfProducts(products);
-
-		System.out.println("converted to DTO: " + _userDto.toString());
-
 		return _userDto;
+	}
+
+	@Override
+	public ProductDTO convertProductsToProductDto(Integer productId) {
+		ProductDTO productDto = new ProductDTO();
+		Products product = _productsService.findById(productId).orElse(null);
+		if (product != null) {
+			productDto.setId(product.getId());
+			productDto.setTitle(product.getTitle());
+			productDto.setDescription(product.getDescription());
+			for (Stock stock : product.getStock()) {
+				productDto.setPrice(stock.getPrice());
+				productDto.setStock(stock.getQuantity());
+			}
+		}
+		return productDto;
 	}
 
 }

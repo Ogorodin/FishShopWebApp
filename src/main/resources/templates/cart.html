@@ -14,14 +14,14 @@
 	<div th:insert="fragments/fragments :: header">HEADER</div>
 	<div class="container">
 		<div class="row">
-			<div th:if="${productAndQtyPairs.isEmpty()}" class="container">
+			<div th:if="${productsAndQtyPairs.isEmpty()}" class="container">
 				<div>
 					<ol class="breadcrumb">
 						<li>Your cart is empty.</li>
 					</ol>
 				</div>
 			</div>
-			<div th:if="${!productAndQtyPairs.isEmpty()}" class="container">
+			<div th:if="${!productsAndQtyPairs.isEmpty()}" class="container">
 				<table class="table table-hover table-condensed">
 					<thead>
 						<tr>
