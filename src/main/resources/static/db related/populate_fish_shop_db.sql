@@ -1,14 +1,12 @@
 use the_fish_shop_db;
 
 -- all passwords have 123 added to the username(john - john123, admin - admin123)
-call insertEmployeeWithDetails('John', 'Doe', 'Main st. 111, New York', 'john', '$2a$04$T83fgYSZH/Yf3KbpuiPixe.lAjUXqBreo.c6nyQ7TXkHXExIOt982', 'jonh123@foo.mail');
-call insertEmployeeWithDetails('Jane', 'Doe', 'Elk st. 222, Anchorage', 'jane', '$2a$04$qUamQqiPmXYrQE5GfYC9cOs7/C3Umc3/QvjdY9R1pDuhe3Q7LT4MW', 'jane123@foo.mail');
-call insertEmployeeWithDetails('Jack', 'Brown', 'Long st.333, Denver', 'jack', '$2a$04$ormy3tcvLZLh37ALquIDluLHjWfW4U851WFLwR8YjIJFAg9ZcKf6K', 'jack123@foo.mail');
-call insertEmployeeWithDetails('Jill', 'Black', 'Short st. 444 89, Los Angeles', 'jill', '$2a$04$atk5Xn1Pw7sW6OMar1k5muzW7lYDsNF/O8UTiB7feD2FzkQeiCFse', 'jill123@foo.mail');
-
-insert into users 
-	values (null, 'pera', '$2a$04$PYt7kuG.KanclxLB/hjhtuelF7ksWWSuAZbKfP9PXG89f7yReBUw6', 'pera@foo.mail', null, 'ROLE_CUSTOMER'),
-		(null, 'admin', '$2a$04$Qzs/CoH3Y36Tqmg/sHv4redqHtuKtDZgedv9Aq38FoNAG6S6fR7sy', 'admin@foo.mail', null, 'ROLE_ADMIN');
+call insertUserWithDetails('John', 'Doe', 'Main st. 111, New York', 'john', '$2a$04$T83fgYSZH/Yf3KbpuiPixe.lAjUXqBreo.c6nyQ7TXkHXExIOt982', 'jonh123@foo.mail', 'ROLE_ADMIN');
+call insertUserWithDetails('Jane', 'Doe', 'Elk st. 222, Anchorage', 'jane', '$2a$04$qUamQqiPmXYrQE5GfYC9cOs7/C3Umc3/QvjdY9R1pDuhe3Q7LT4MW', 'jane123@foo.mail', 'ROLE_EMPLOYEE');
+call insertUserWithDetails('Jack', 'Brown', 'Long st.333, Denver', 'jack', '$2a$04$ormy3tcvLZLh37ALquIDluLHjWfW4U851WFLwR8YjIJFAg9ZcKf6K', 'jack123@foo.mail', 'ROLE_EMPLOYEE');
+call insertUserWithDetails('Jill', 'Black', 'Short st. 444 89, Los Angeles', 'jill', '$2a$04$atk5Xn1Pw7sW6OMar1k5muzW7lYDsNF/O8UTiB7feD2FzkQeiCFse', 'jill123@foo.mail', 'ROLE_EMPLOYEE');
+call insertUserWithDetails('Petar', 'Petrovic', 'Beogradska st.11', 'pera', '$2a$04$PYt7kuG.KanclxLB/hjhtuelF7ksWWSuAZbKfP9PXG89f7yReBUw6', 'pera@foo.mail', 'ROLE_CUSTOMER');
+call insertUserWithDetails('Lazar', 'Lazarevic', 'Novosadska st.22', 'laza', '$2a$10$kPFBpEm.G0uxv4g2IzgSguyKkeBlYcr5oSDQsA4fYnLM4OTW2bxkW', 'laza@foo.mail', 'ROLE_CUSTOMER');
 
 insert into products values
 				-- fresh water fish --

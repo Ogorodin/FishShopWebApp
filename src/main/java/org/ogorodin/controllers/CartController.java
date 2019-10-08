@@ -29,12 +29,7 @@ public class CartController {
 
 	@GetMapping
 	public ModelAndView showCart(@ModelAttribute UserDTO userDTO, @ModelAttribute CartDTO cartDto) {
-		for (int id : _allCarts.keySet()) {
-			if (id == userDTO.getId()) {
-				_modelAndView.addObject("cart", _allCarts.get(id));
-				break;
-			}
-		}
+		
 
 		return _modelAndView;
 	}
@@ -49,10 +44,12 @@ public class CartController {
 			CartDTO cartDTO = new CartDTO(productId, qtyInCart);
 			_allCarts.put(customerId, cartDTO);
 		} else {
-			CartDTO tempCartDto = new CartDTO();
-			tempCartDto = _allCarts.get(customerId).insertIntoCart(productId, qtyInCart);
+			CartDTO tempCartDto = _allCarts.get(customerId);
+			tempCartDto.insertIntoCart(productId, qtyInCart);
 			_allCarts.replace(customerId, tempCartDto);
 		}
+		
+		
 
 		///////////////////////////////////
 

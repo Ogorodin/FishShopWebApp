@@ -9,8 +9,8 @@ public class CartDTO {
 	public CartDTO() {
 	}
 
-	public CartDTO(int customerId, int qty) {
-		insertIntoCart(customerId, qty);
+	public CartDTO(int productId, int qty) {
+		insertIntoCart(productId, qty);
 	}
 
 	public HashMap<Integer, Integer> getCart() {
