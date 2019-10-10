@@ -40,7 +40,7 @@ public class Products {
 	private EProductType productType;
 
 	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-			CascadeType.REFRESH }, mappedBy = "product")
+			CascadeType.REFRESH }, mappedBy = "product", fetch = FetchType.EAGER)
 	private List<Stock> stock;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
@@ -100,7 +100,7 @@ public class Products {
 	@Override
 	public String toString() {
 		return "Products [id=" + id + ", title=" + title + ", description=" + description + ", productType="
-				+ productType + ", stockData=" + stock + "]";
+				+ productType + "]";
 	}
 
 }

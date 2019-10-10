@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.ogorodin.entity.Products;
 import org.ogorodin.entity.helpers.IProductDetailsForAdmin;
 import org.ogorodin.entity.helpers.IProductHomePageSummary;
+import org.ogorodin.entity.helpers.dtos.ProductDTO;
 import org.ogorodin.repository.IProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

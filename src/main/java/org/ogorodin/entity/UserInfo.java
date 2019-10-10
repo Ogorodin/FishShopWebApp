@@ -41,20 +41,20 @@ public class UserInfo {
 		this.id = id;
 	}
 
-	public String getFirst_name() {
+	public String getFirstName() {
 		return firstName;
 	}
 
-	public void setFirst_name(String first_name) {
-		this.firstName = first_name;
+	public void setFirst_name(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLast_name() {
+	public String getLastName() {
 		return lastName;
 	}
 
-	public void setLast_name(String last_name) {
-		this.lastName = last_name;
+	public void setLast_name(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getAddress() {

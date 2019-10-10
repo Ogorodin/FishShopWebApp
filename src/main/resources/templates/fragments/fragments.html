@@ -7,7 +7,7 @@
 <title>* F I S H - S H O P *</title>
 <meta charset="UTF-8" />
 <link
-	th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"
+	th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css}"
 	rel="stylesheet">
 </head>
 
@@ -22,26 +22,88 @@
 				<div sec:authentication="">
 					<ul class="nav navbar-nav navbar-left">
 						<li sec:authorize="!isAnonymous()">
-							<a th:text="${'Hello, ' + #authentication.principal.username}"
-								id="userButton" class="btn">Greet user here.</a>
+							<a  th:text="${'Hello, ' + #authentication.principal.username}"
+								th:href="@{/profile?id=} + ${userDTO.id}" id="userButton"
+								class="btn">Greet user here.
+							</a>
 						</li>
 						<li>
 							<a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn">Logout</a>
 						</li>
 					</ul>
 				</div>
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+						<!-- USER DTO -->
+						<div sec:authorize="!isAnonymous()">
+							<p th:text="${userDTO.id}">USER DTO</p>
+						</div>
+					
+				<!--          -->
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="cart">Cart</a></li>
-						<li>
-							<a sec:authorize="isAnonymous()" th:onclick="@{location.href='/login'}" type="button" class="btn">Login</a>
+					
+						<li><a sec:authorize="isAnonymous()" th:href="@{/cart}" type="button" class="btn">Cart</a></li>
+						<li><a sec:authorize="!isAnonymous()" th:onclick="@{/cart/{id}(id=${userDTO.id})}" type="button" class="btn">CART</a></li>
+						<li><a sec:authorize="isAnonymous()" th:onclick="@{location.href='/login'}" type="button" class="btn">Login</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</nav>
 	</div>
-
+	
+	<!-- ORGANIZED PRODUCTS LIST LEFT / HOME -->
+	<div th:fragment="products-list-left">
+		<div class="col-md-3">
+			<div th:if="${organizedProducts.fishProducts.size()>0}">
+				<a href="#" class="list-group-item active">Fish</a>
+				<ul class="list-group">
+					<li th:inline="text" class="list-group-item">Freshwater <span
+						class="label label-primary pull-right">[[${organizedProducts.numOfFreshWaterFish}]]</span>
+					</li>
+					<li th:inline="text" class="list-group-item">Saltwater <span
+						class="label label-success pull-right">[[${organizedProducts.numOfSaltWaterFish}]]</span>
+					</li>
+					<li th:inline="text" class="list-group-item">Crabs<span
+						class="label label-danger pull-right">[[${organizedProducts.numOfCrabs}]]</span>
+					</li>
+					<li th:inline="text" class="list-group-item">Pond <span
+						class="label label-danger pull-right">[[${organizedProducts.numOfPondFish}]]</span>
+					</li>
+				</ul>
+			</div>
+			<div th:if="${organizedProducts.plantProducts.size()>0}">
+				<a href="#" class="list-group-item active list-group-item-success">Plants
+				</a>
+				<ul class="list-group">
+					<li th:inline="text" class="list-group-item">Freshwater <span
+						class="label label-danger pull-right">[[${organizedProducts.numOfFreshWaterPlants}]]</span>
+					</li>
+					<li class="list-group-item">Pond <span
+						class="label label-success pull-right">[[${organizedProducts.numOfPondPlants}]]</span>
+					</li>
+				</ul>
+			</div>
+			<div th:if="${organizedProducts.otherProducts.size()>0}">
+				<a href="#" class="list-group-item active">Other </a>
+				<ul class="list-group">
+					<li th:inline="text" class="list-group-item">Tanks <span
+						class="label label-warning pull-right">[[${organizedProducts.numOfTanks}]]</span>
+					</li>
+					<li th:inline="text" class="list-group-item">Food <span
+						class="label label-success pull-right">[[${organizedProducts.numOfFoodItems}]]</span>
+					</li>
+					<li th:inline="text" class="list-group-item">Filters <span
+						class="label label-success pull-right">[[${organizedProducts.numOfFilterItems}]]</span>
+					</li>
+					<li th:inline="text" class="list-group-item">CO2 <span
+						class="label label-success pull-right">[[${organizedProducts.numOfCo2Items}]]</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>

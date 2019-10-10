@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.ogorodin.entity.Users;
+import org.ogorodin.entity.helpers.dtos.UserDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,28 +12,30 @@ import org.springframework.security.core.userdetails.UserDetails;
 @SuppressWarnings("serial")
 public class UsersPrincipal implements UserDetails {
 
-	private Users _user;
+	private UserDTO _userDTO;
 
-	public UsersPrincipal(Users user) {
-		this._user = user;
+	public UsersPrincipal(UserDTO userDTO) {
+		this._userDTO = userDTO;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(_user.getRole().toString());
+		System.err.println("IN Users Principal");
+		System.err.println(_userDTO);
+		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(_userDTO.getRole().toString());
 		authorities.add(grantedAuthority);
 		return authorities;
 	}
 
 	@Override
 	public String getPassword() {
-		return _user.getPassword();
+		return _userDTO.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		return _user.getUsername();
+		return _userDTO.getUsername();
 	}
 
 	@Override
