@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,9 +28,9 @@ public class CartController {
 	// map of customerId and CartDTO pairs
 	private HashMap<Integer, CartDTO> _allCarts = new HashMap<>();
 
-	@GetMapping
-	public ModelAndView showCart(@ModelAttribute UserDTO userDTO, @ModelAttribute CartDTO cartDto) {
-		
+	@GetMapping("/{id}")
+	public ModelAndView showCart(@PathVariable String id, @ModelAttribute UserDTO userDTO,
+			@ModelAttribute CartDTO cartDTO) {
 
 		return _modelAndView;
 	}
@@ -48,10 +49,6 @@ public class CartController {
 			tempCartDto.insertIntoCart(productId, qtyInCart);
 			_allCarts.replace(customerId, tempCartDto);
 		}
-		
-		
-
-		///////////////////////////////////
 
 		UserDTO userDTO = _dtoService.getUserDTO();
 		if (userDTO != null) {
@@ -74,15 +71,7 @@ public class CartController {
 
 	@GetMapping("/deleteProduct")
 	public ModelAndView deleteProduct(@ModelAttribute UserDTO UserDTO, @RequestParam int productId) {
-//		ProductDTO tempProduct = null;
-//		for (ProductDTO product : _productIdAndQtyPairs.keySet()) {
-//			if (productId == product.getId()) {
-//				tempProduct = product;
-//			}
-//		}
-//		if (tempProduct != null) {
-//			_productIdAndQtyPairs.remove(tempProduct);
-//		}
+
 		_modelAndView.setViewName("redirect:/cart");
 		return _modelAndView;
 	}
