@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class CartDTO {
 
+	// pairs of productID and quantity
 	private HashMap<Integer, Integer> _cart = new HashMap<>();
 
 	public CartDTO() {

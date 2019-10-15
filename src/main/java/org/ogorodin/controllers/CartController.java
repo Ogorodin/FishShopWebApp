@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -28,10 +29,23 @@ public class CartController {
 	// map of customerId and CartDTO pairs
 	private HashMap<Integer, CartDTO> _allCarts = new HashMap<>();
 
-	@GetMapping("/{id}")
-	public ModelAndView showCart(@PathVariable String id, @ModelAttribute UserDTO userDTO,
-			@ModelAttribute CartDTO cartDTO) {
+	@RequestMapping("{customerId}")
+	public ModelAndView showCart(@PathVariable String customerId, @ModelAttribute CartDTO cartDTO) {
 
+		System.err.println("CUstomer ID: " + customerId);
+		UserDTO userDto = _dtoService.getUserDTO();
+		if (userDto != null) {
+			_modelAndView.addObject("UserDTO", userDto);
+		}
+		CartDTO cartDto = _allCarts.get(Integer.parseInt(customerId));
+
+		System.err.println("CartDTO: \n>>>>>>>>>>" + cartDto);
+		if (cartDto != null) {
+			_modelAndView.addObject("cartDTO", cartDto);
+		}
+		System.err.println("CartDTO in showCart()\n>>>>>>>" + cartDto);
+
+		_modelAndView.setViewName("cart");
 		return _modelAndView;
 	}
 
@@ -39,7 +53,7 @@ public class CartController {
 	public ModelAndView addToCart(@RequestParam int customerId, @RequestParam int productId,
 			@RequestParam int qtyInCart) {
 
-		ProductDTO productDto = _dtoService.convertProductsToProductDto(productId);
+	//	ProductDTO productDto = _dtoService.convertProductsToProductDto(productId);
 
 		if (_allCarts.isEmpty() || !_allCarts.containsKey(customerId)) {
 			CartDTO cartDTO = new CartDTO(productId, qtyInCart);

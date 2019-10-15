@@ -1,9 +1,5 @@
 package org.ogorodin.entity.helpers.dtos;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.ogorodin.entity.Products;
 import org.ogorodin.entity.Users.ERole;
 
 public class UserDTO {
@@ -15,8 +11,7 @@ public class UserDTO {
 	private String _lastName;
 	private String _address;
 	private ERole _role;
-
-	private List<Products> _listOfProducts;
+	private CartDTO _cartDTO;
 
 	public int getId() {
 		return _id;
@@ -74,22 +69,19 @@ public class UserDTO {
 		this._role = role;
 	}
 
-	public List<Products> getListOfProducts() {
-		if (_listOfProducts == null) {
-			_listOfProducts = new ArrayList<Products>();
-		}
-		return _listOfProducts;
+	public CartDTO getCartDTO() {
+		return _cartDTO;
 	}
 
-	public void setListOfProducts(List<Products> listOfProducts) {
-		this._listOfProducts = listOfProducts;
+	public void setCartDTO(CartDTO cartDTO) {
+		this._cartDTO = cartDTO;
 	}
 
 	@Override
 	public String toString() {
-		return "UserDTO [id=" + _id + ", username=" + _username + ", password=" + _password + ", firstName="
-				+ _firstName + ", lastName=" + _lastName + ", address=" + _address + ", role=" + _role
-				+ ", listOfProducts=" + _listOfProducts + "]";
+		return "UserDTO [_id=" + _id + ", _username=" + _username + ", _password=" + _password + ", _firstName="
+				+ _firstName + ", _lastName=" + _lastName + ", _address=" + _address + ", _role=" + _role
+				+ ", _cartDTO=" + _cartDTO + "]";
 	}
 
 }
