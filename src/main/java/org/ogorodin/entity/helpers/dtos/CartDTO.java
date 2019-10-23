@@ -6,12 +6,26 @@ public class CartDTO {
 
 	// pairs of productID and quantity
 	private HashMap<Integer, Integer> _cart = new HashMap<>();
+	private int _customerId;
 
 	public CartDTO() {
 	}
 
-	public CartDTO(int productId, int qty) {
+	public CartDTO(int customerId, int productId, int qty) {
+		this._customerId = customerId;
 		insertIntoCart(productId, qty);
+	}
+
+	public int getCustomerId() {
+		return _customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this._customerId = customerId;
+	}
+
+	public void setCart(HashMap<Integer, Integer> cart) {
+		this._cart = cart;
 	}
 
 	public HashMap<Integer, Integer> getCart() {

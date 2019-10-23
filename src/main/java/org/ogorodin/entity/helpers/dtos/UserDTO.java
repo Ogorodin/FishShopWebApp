@@ -1,5 +1,7 @@
 package org.ogorodin.entity.helpers.dtos;
 
+import java.util.HashMap;
+
 import org.ogorodin.entity.Users.ERole;
 
 public class UserDTO {
@@ -11,7 +13,7 @@ public class UserDTO {
 	private String _lastName;
 	private String _address;
 	private ERole _role;
-	private CartDTO _cartDTO;
+	private HashMap<Integer, Integer> _cart = new HashMap<>();
 
 	public int getId() {
 		return _id;
@@ -69,19 +71,21 @@ public class UserDTO {
 		this._role = role;
 	}
 
-	public CartDTO getCartDTO() {
-		return _cartDTO;
+	public HashMap<Integer, Integer> getCart() {
+		return _cart;
 	}
 
-	public void setCartDTO(CartDTO cartDTO) {
-		this._cartDTO = cartDTO;
+	public void setCart(HashMap<Integer, Integer> cart) {
+		this._cart = cart;
 	}
 
 	@Override
 	public String toString() {
 		return "UserDTO [_id=" + _id + ", _username=" + _username + ", _password=" + _password + ", _firstName="
-				+ _firstName + ", _lastName=" + _lastName + ", _address=" + _address + ", _role=" + _role
-				+ ", _cartDTO=" + _cartDTO + "]";
+				+ _firstName + ", _lastName=" + _lastName + ", _address=" + _address + ", _role=" + _role + ", _cart="
+				+ _cart + "]";
 	}
+	
+	
 
 }

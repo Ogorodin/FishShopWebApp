@@ -15,6 +15,15 @@ public class ProductDTO {
 	public ProductDTO() {
 	}
 
+	public ProductDTO(int _id, String _title, String _description, double _price, double _subtotal, int _stock) {
+		this._id = _id;
+		this._title = _title;
+		this._description = _description;
+		this._price = _price;
+		this._subtotal = _subtotal;
+		this._stock = _stock;
+	}
+
 	public int getId() {
 		return _id;
 	}

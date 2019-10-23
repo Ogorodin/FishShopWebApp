@@ -21,11 +21,7 @@ public class UserPrincipalDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		System.err.println("In loadUserByUsername - user principal details service");
-		// Users user = _usersRepository.findByUsername(username);
 		UserDTO userDTO = _dtoService.convertUserToUserDTO(username);
-		System.err.println(userDTO);
-		System.err.println("In userPrincipalDetailsSerrvice.java");
 		UsersPrincipal userPrincipal = new UsersPrincipal(userDTO);
 		return userPrincipal;
 
