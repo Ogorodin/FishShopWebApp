@@ -90,10 +90,9 @@ public class CartController {
 		return _modelAndView;
 	}
 
-	@GetMapping("/refreshCartView")
-	public ModelAndView refreshCartView(@ModelAttribute UserDTO UserDTO, @RequestParam String qty,
-			@ModelAttribute HashMap<Products, Integer> productAndQtyPairs) {
-
+	@GetMapping("{customerId}/refreshCartView")
+	public ModelAndView refreshCartView(@PathVariable String customerId, @RequestParam String qty) {
+		System.out.println("CUSTOMER ID: " + customerId);
 		return _modelAndView;
 	}
 

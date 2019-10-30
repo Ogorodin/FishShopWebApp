@@ -3,8 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Your cart</title>
-<link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css}" rel="stylesheet">
+<link href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<!-- <link href="/webjars/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" /> -->
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="/webjars/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
+<script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
 </head>
 <body>
 	<div th:insert="fragments/fragments :: header">HEADER</div>
@@ -18,7 +21,7 @@
 				</div>
 			</div>
 
-			<div th:if="${!cart.isEmpty()}" class="container">
+			<div th:if="${!cart.isEmpty()}" th:with="customerID=${userDTO.id}" class="container">
 				<table class="table table-hover table-condensed">
 					<thead>
 						<tr>
@@ -46,14 +49,16 @@
 								</div>
 							</td>
 							<!-- product price -->
-							<td><p th:text="${'$ ' + productDTO.key.price}">$ xxx</p></td>
+							<td><p th:text="${'$ ' + productDTO.key.price}" th:id="price + ${productID}">$ xxx</p></td>
 							<!-- quantity -->
-							<td><input type="number" th:value="${quantity}" id="qty" name="qty" min="1" class="form-control text-center"></td>
+							<td>
+								<input type="number" th:value="${quantity}" th:id="qty + ${productID}" min="1" class="form-control text-center">
+							</td>
 							<!-- subtotal -->
-							<td th:text="'$ ' + ${productDTO.key.subtotal}" class="text-center">$ xxx</td>
+							<td th:text="'$ ' + ${productDTO.key.subtotal}" th:id="subtotal + ${productID}" class="text-center">$ xxx</td>
 							<!-- refresh cart -->
 							<td>
-								<form th:action="@{/cart/refreshCartView}">
+								<form th:action="@{/cart/{customerId}/refreshCartView (customerId=${customerID})}">
 									<input type="hidden" value="#{qty}" />
 									<button type="submit" class="btn btn-info btn-sm">
 										<i class="fa fa-refresh"></i>
@@ -62,9 +67,8 @@
 							</td>
 							<!-- delete product -->
 							<td>
-								<form th:action="@{/cart/{customerId}/deleteProduct?productId= (customerId=${userDTO.id})} + ${productID} ">
-									<input type="hidden" th:value="${productDTO.key.id}" name="productId"
-										id="productId" />
+								<form th:action="@{/cart/{customerId}/deleteProduct?productId= (customerId=${customerID})} + ${productID}">
+									<input type="hidden" th:value="${productDTO.key.id}" name="productId" id="productId" />
 									<button type="submit" class="btn btn-danger btn-sm">
 										<i class="fa fa-trash-o"></i>
 									</button>
@@ -79,13 +83,15 @@
 						<tr>
 							<td>
 								<a th:href="@{/index}" class="btn btn-warning">
-								<i class="fa fa-angle-left"></i> Continue Shopping</a>
+									<i class="fa fa-angle-left"></i>Continue Shopping
+								</a>
 							</td>
 							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center"><strong th:text="'$ ' + ${total}">Total $$$</strong></td>
+							<td class="hidden-xs text-center">
+								<strong th:text="'$ ' + ${total}">Total $$$</strong>
+							</td>
 							<td></td>
-							<td>
-								<a th:href="@{/checkout}" class="btn btn-success btn-block">Checkout
+							<td><a th:href="@{/checkout}" class="btn btn-success btn-block">Checkout
 									<i class="fa fa-angle-right"></i>
 								</a>
 							</td>
@@ -97,4 +103,18 @@
 		</div>
 	</div>
 </body>
+<script>
+$(function(){
+	
+	$(document).on('change', '[id^="qty"]',function(){
+		var value = $(this).val();
+		var price = $('[id^=price]').text();
+		var test = $('.container').text();
+		
+		console.log(value);
+		console.log(price);
+	//	console.log(test);
+	});	
+});
+</script>
 </html>
