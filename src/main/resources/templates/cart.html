@@ -49,10 +49,10 @@
 								</div>
 							</td>
 							<!-- product price -->
-							<td><p th:text="${'$ ' + productDTO.key.price}" th:id="price + ${productID}">$ xxx</p></td>
+							<td><p th:text="${'$ ' + productDTO.key.price}" th:id="${productID} + price" th:product-price="${productDTO.key.price}">$ xxx</p></td>
 							<!-- quantity -->
 							<td>
-								<input type="number" th:value="${quantity}" th:id="qty + ${productID}" min="1" class="form-control text-center">
+								<input th:id="qty+${productID}" th:product-id="${productID}" type="number" th:value="${quantity}" min="1" class="form-control text-center">
 							</td>
 							<!-- subtotal -->
 							<td th:text="'$ ' + ${productDTO.key.subtotal}" th:id="subtotal + ${productID}" class="text-center">$ xxx</td>
@@ -67,7 +67,7 @@
 							</td>
 							<!-- delete product -->
 							<td>
-								<form th:action="@{/cart/{customerId}/deleteProduct?productId= (customerId=${customerID})} + ${productID}">
+								<form th:action="@{/cart/{customerId}/deleteProduct?productId=(customerId=${customerID})} + ${productID}">
 									<input type="hidden" th:value="${productDTO.key.id}" name="productId" id="productId" />
 									<button type="submit" class="btn btn-danger btn-sm">
 										<i class="fa fa-trash-o"></i>
@@ -104,17 +104,19 @@
 	</div>
 </body>
 <script>
-$(function(){
+$(function(){	
+	console.log("JQuery is working!");
 	
-	$(document).on('change', '[id^="qty"]',function(){
-		var value = $(this).val();
-		var price = $('[id^=price]').text();
-		var test = $('.container').text();
-		
-		console.log(value);
-		console.log(price);
-	//	console.log(test);
-	});	
+	$(document).on('change', '[id^="qty"]',function(){	
+		var productId = $(this).attr('product-id');
+		console.log(productId);
+		var price = $('#' +productId+'price').attr('product-price'); 	console.log("Price: " + price);
+		var subtotal = price * $(this).val();
+		$('#subtotal' + productId).val(subtotal).text(subtotal);
+		console.log("New subtotal: " +subtotal);
+	});
+
+
 });
 </script>
 </html>
