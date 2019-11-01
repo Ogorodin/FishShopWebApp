@@ -33,20 +33,11 @@
 					</ul>
 				</div>
 			
-				<div class="collapse navbar-collapse"
-					id="bs-example-navbar-collapse-1">
-						<!-- USER DTO -->
-						<div sec:authorize="!isAnonymous()">
-							<p th:text="${userDTO.id}">USER DTO</p>
-						</div>
-					
-				<!--          -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
-					
 						<li><a sec:authorize="isAnonymous()" th:href="@{/cart}" type="button" class="btn">Cart</a></li>
-						<li><a sec:authorize="!isAnonymous()" th:onclick="@{/cart/{id}(id=${userDTO.id})}" type="button" class="btn">CART</a></li>
-						<li><a sec:authorize="isAnonymous()" th:onclick="@{location.href='/login'}" type="button" class="btn">Login</a>
-						</li>
+						<li><a sec:authorize="!isAnonymous()" th:href="@{/cart/{customerId} (customerId=${userDTO.id})}" type="button" class="btn">Cart</a></li>
+						<li><a sec:authorize="isAnonymous()" th:onclick="@{location.href='/login'}" type="button" class="btn">Login</a></li>
 					</ul>
 				</div>
 			</div>

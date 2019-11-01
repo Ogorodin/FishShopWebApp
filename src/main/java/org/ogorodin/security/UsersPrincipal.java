@@ -21,8 +21,8 @@ public class UsersPrincipal implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		System.err.println("IN Users Principal");
-		System.err.println(_userDTO);
+//		System.err.println("IN Users Principal");
+//		System.err.println(_userDTO);
 		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(_userDTO.getRole().toString());
 		authorities.add(grantedAuthority);
 		return authorities;

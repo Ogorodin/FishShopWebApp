@@ -28,10 +28,37 @@ public class CartController {
 	// map of customerId and CartDTO pairs
 	private HashMap<Integer, CartDTO> _allCarts = new HashMap<>();
 
-	@GetMapping("/{id}")
-	public ModelAndView showCart(@PathVariable String id, @ModelAttribute UserDTO userDTO,
-			@ModelAttribute CartDTO cartDTO) {
+	@RequestMapping("{customerId}")
+	public ModelAndView showCart(@PathVariable String customerId) {
 
+		System.err.println("Customer ID: " + customerId);
+		UserDTO userDto = _dtoService.getUserDTO();
+		CartDTO cartDto = _allCarts.get(Integer.parseInt(customerId));
+
+		HashMap<ProductDTO, Integer> cart = new HashMap<>();
+		ProductDTO productDto = new ProductDTO();
+
+		System.out.println("CART DTO: \n" + cartDto + "\n>>>>>>>>>>>>>>>");
+		if (cartDto != null) {
+			double total = 0;
+			for (int id : cartDto.getCart().keySet()) {
+				productDto = _dtoService.convertProductsToProductDto(id);
+				double subtotal = cartDto.getCart().get(productDto.getId()) * productDto.getPrice();
+				productDto.setSubtotal(subtotal);
+				total += subtotal;
+				cart.put(productDto, cartDto.getCart().get(productDto.getId()));
+			}
+			_modelAndView.addObject("total", total);
+		}
+
+		System.err.println("CART: \n" + cart);
+
+		System.err.println("USerDTO: \n" + userDto);
+
+		_modelAndView.addObject("userDTO", userDto);
+		_modelAndView.addObject("cart", cart);
+
+		_modelAndView.setViewName("cart");
 		return _modelAndView;
 	}
 
@@ -39,10 +66,11 @@ public class CartController {
 	public ModelAndView addToCart(@RequestParam int customerId, @RequestParam int productId,
 			@RequestParam int qtyInCart) {
 
-		ProductDTO productDto = _dtoService.convertProductsToProductDto(productId);
+		// ProductDTO productDto = _dtoService.convertProductsToProductDto(productId);
 
 		if (_allCarts.isEmpty() || !_allCarts.containsKey(customerId)) {
-			CartDTO cartDTO = new CartDTO(productId, qtyInCart);
+			CartDTO cartDTO = new CartDTO(customerId, productId, qtyInCart);
+
 			_allCarts.put(customerId, cartDTO);
 		} else {
 			CartDTO tempCartDto = _allCarts.get(customerId);
@@ -62,17 +90,12 @@ public class CartController {
 		return _modelAndView;
 	}
 
-	@GetMapping("/refreshCartView")
-	public ModelAndView refreshCartView(@ModelAttribute UserDTO UserDTO, @RequestParam String qty,
-			@ModelAttribute HashMap<Products, Integer> productAndQtyPairs) {
-
-		return _modelAndView;
-	}
-
-	@GetMapping("/deleteProduct")
-	public ModelAndView deleteProduct(@ModelAttribute UserDTO UserDTO, @RequestParam int productId) {
-
-		_modelAndView.setViewName("redirect:/cart");
+	@GetMapping("{customerId}/deleteProduct")
+	public ModelAndView deleteProduct(@PathVariable String customerId, @RequestParam String productId) {
+		CartDTO cartDto = _allCarts.get(Integer.parseInt(customerId));
+		cartDto.getCart().remove(Integer.parseInt(productId));
+		_allCarts.replace(Integer.parseInt(customerId), cartDto);
+		_modelAndView.setViewName("redirect:/cart/" + customerId);
 		return _modelAndView;
 	}
 }
