@@ -90,12 +90,6 @@ public class CartController {
 		return _modelAndView;
 	}
 
-	@GetMapping("{customerId}/refreshCartView")
-	public ModelAndView refreshCartView(@PathVariable String customerId, @RequestParam String qty) {
-		System.out.println("CUSTOMER ID: " + customerId);
-		return _modelAndView;
-	}
-
 	@GetMapping("{customerId}/deleteProduct")
 	public ModelAndView deleteProduct(@PathVariable String customerId, @RequestParam String productId) {
 		CartDTO cartDto = _allCarts.get(Integer.parseInt(customerId));
