@@ -34,8 +34,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="productDTO : ${cart}"
-							th:with="productID=${productDTO.key.id}, quantity=${productDTO.value}">
+						<tr th:each="productDTO : ${cart}" class="product-list"
+							th:with="productID=${productDTO.key.id}, quantity=${productDTO.value}, price=${productDTO.key.price}, subtotal=${productDTO.key.subtotal}">
 							<td>
 								<div class="row">
 									<div class="col-sm-2 hidden-xs">
@@ -49,13 +49,17 @@
 								</div>
 							</td>
 							<!-- product price -->
-							<td><p th:text="${'$ ' + productDTO.key.price}" th:id="${productID} + price" th:product-price="${productDTO.key.price}">$ xxx</p></td>
+							<td>
+								<p th:id="price + ${productID}" th:product-price="${price}" th:value="${price}" th:text="${'$ ' + price}" >$ xxx</p>
+							</td>
 							<!-- quantity -->
 							<td>
-								<input th:id="qty+${productID}" th:product-id="${productID}" type="number" th:value="${quantity}" min="1" class="form-control text-center">
+								<input th:id="qty + ${productID}" th:product-id="${productID}" th:value="${quantity}" type="number" min="1" class="form-control text-center">
 							</td>
 							<!-- subtotal -->
-							<td th:text="'$ ' + ${productDTO.key.subtotal}" th:id="subtotal + ${productID}" class="text-center">$ xxx</td>
+							<td class="total-relevant-td">
+								<p th:id="subtotal + ${productID}" th:product-subtotal="${subtotal}" th:text="'$ ' + ${subtotal}" class="text-center">$ xxx</p>
+							</td>
 							<!-- refresh cart -->
 							<td>
 								<form th:action="@{/cart/{customerId}/refreshCartView (customerId=${customerID})}">
@@ -88,7 +92,7 @@
 							</td>
 							<td colspan="2" class="hidden-xs"></td>
 							<td class="hidden-xs text-center">
-								<strong th:text="'$ ' + ${total}">Total $$$</strong>
+								<strong th:id="total" th:total="${total}" th:text="'$ ' + ${total}">Total $$$</strong>
 							</td>
 							<td></td>
 							<td><a th:href="@{/checkout}" class="btn btn-success btn-block">Checkout
@@ -104,17 +108,26 @@
 	</div>
 </body>
 <script>
-$(function(){	
-	console.log("JQuery is working!");
+$(function(){
 	
+	reloadCart();
+
 	$(document).on('change', '[id^="qty"]',function(){	
 		var productId = $(this).attr('product-id');
-		console.log(productId);
-		var price = $('#' +productId+'price').attr('product-price'); 	console.log("Price: " + price);
+		var price = $('#price' + productId).attr('product-price');
 		var subtotal = price * $(this).val();
-		$('#subtotal' + productId).val(subtotal).text(subtotal);
-		console.log("New subtotal: " +subtotal);
+		$('#subtotal' + productId).attr('product-subtotal', subtotal).text(subtotal);		
+		reloadCart();
 	});
+	
+	function reloadCart(){
+		var total = 0;
+		$('.total-relevant-td').map(function(index,element){			
+			total += parseFloat($(this).children().attr('product-subtotal'));
+			$('#total').val(total).text('$ ' + total);
+		});
+	}
+
 
 
 });
