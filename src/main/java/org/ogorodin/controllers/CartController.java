@@ -98,4 +98,11 @@ public class CartController {
 		_modelAndView.setViewName("redirect:/cart/" + customerId);
 		return _modelAndView;
 	}
+	
+	@RequestMapping("/{customerId}/checkout")
+	public ModelAndView checkout() {
+		System.out.println("IN CHECKOUT CONTROLLER METHOD");
+		_modelAndView.setViewName("checkout");
+		return _modelAndView;
+	}
 }
