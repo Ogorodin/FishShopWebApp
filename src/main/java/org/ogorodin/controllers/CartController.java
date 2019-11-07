@@ -2,7 +2,6 @@ package org.ogorodin.controllers;
 
 import java.util.HashMap;
 
-import org.ogorodin.entity.Products;
 import org.ogorodin.entity.helpers.dtos.CartDTO;
 import org.ogorodin.entity.helpers.dtos.ProductDTO;
 import org.ogorodin.entity.helpers.dtos.UserDTO;
@@ -31,14 +30,14 @@ public class CartController {
 	@RequestMapping("{customerId}")
 	public ModelAndView showCart(@PathVariable String customerId) {
 
-		System.err.println("Customer ID: " + customerId);
+//		System.err.println("Customer ID: " + customerId);
 		UserDTO userDto = _dtoService.getUserDTO();
 		CartDTO cartDto = _allCarts.get(Integer.parseInt(customerId));
 
 		HashMap<ProductDTO, Integer> cart = new HashMap<>();
 		ProductDTO productDto = new ProductDTO();
 
-		System.out.println("CART DTO: \n" + cartDto + "\n>>>>>>>>>>>>>>>");
+//		System.out.println("CART DTO: \n" + cartDto + "\n>>>>>>>>>>>>>>>");
 		if (cartDto != null) {
 			double total = 0;
 			for (int id : cartDto.getCart().keySet()) {
@@ -50,10 +49,6 @@ public class CartController {
 			}
 			_modelAndView.addObject("total", total);
 		}
-
-		System.err.println("CART: \n" + cart);
-
-		System.err.println("USerDTO: \n" + userDto);
 
 		_modelAndView.addObject("userDTO", userDto);
 		_modelAndView.addObject("cart", cart);
@@ -83,8 +78,8 @@ public class CartController {
 			_modelAndView.addObject("userDTO", userDTO);
 		}
 
-		System.out.println("CUSTOMER ID: " + customerId);
-		System.out.println("ALL CARTS: \n >>>>>>>>>> " + _allCarts);
+//		System.out.println("CUSTOMER ID: " + customerId);
+//		System.out.println("ALL CARTS: \n >>>>>>>>>> " + _allCarts);
 
 		_modelAndView.setViewName("redirect:/");
 		return _modelAndView;
@@ -98,10 +93,24 @@ public class CartController {
 		_modelAndView.setViewName("redirect:/cart/" + customerId);
 		return _modelAndView;
 	}
-	
+
 	@RequestMapping("/{customerId}/checkout")
-	public ModelAndView checkout() {
-		System.out.println("IN CHECKOUT CONTROLLER METHOD");
+	public ModelAndView checkout(@ModelAttribute UserDTO userDto) {
+
+		System.err.println("IN CHECKOUT CONTROLLER METHOD");
+		System.err.println("USER DTO: >>>>>>>>>>>>>>>>\n" + userDto);
+
+		HashMap<ProductDTO, Integer> cart = new HashMap<>();
+		CartDTO cartDTO = _allCarts.get(userDto.getId());
+		for (int id : cartDTO.getCart().keySet()) {
+			ProductDTO productDTO = _dtoService.convertProductsToProductDto(id);
+			cart.put(productDTO, cartDTO.getCart().get(productDTO.getId()));
+		}
+
+		System.err.println("CART: \n" + cart);
+
+		_modelAndView.addObject("userDTO", userDto);
+		_modelAndView.addObject("cart", cart);
 		_modelAndView.setViewName("checkout");
 		return _modelAndView;
 	}

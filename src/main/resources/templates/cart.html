@@ -85,9 +85,13 @@
 								<strong th:id="total" th:total="${total}" th:text="'$ ' + ${total}">Total $$$</strong>
 							</td>
 							<td>
-								<form th:action="@{/cart/{customerId}/checkout(customerId=${customerID})}">
-							
-									
+								<form th:action="@{/cart/{customerId}/checkout(customerId=${customerID})}" th:object="${userDTO}" th:method="POST">
+									<input type="hidden" id="id" name="id" th:field="${userDTO.id}"/>				
+									<input type="hidden" id="firstName" name="firstName" th:field="${userDTO.firstName}"/>
+									<input type="hidden" id="lastName" name="lastName" th:field="${userDTO.lastName}"/>
+									<input type="hidden" id="username" name="username" th:field="${userDTO.username}" />
+									<input type="hidden" id="email" name="email" th:field="${userDTO.email}" />
+									<input type="hidden" id="address" name="address" th:field="${userDTO.address}" />
 									<button type="submit" class="btn btn-success">Checkout</button>
 								</form>
 							</td>
@@ -108,6 +112,7 @@ $(function(){
 		var productId = $(this).attr('product-id');
 		var price = $('#price' + productId).attr('product-price');
 		var subtotal = (price * $(this).val()).toFixed(1);
+		console.log('Subtotal: ' + subtotal);
 		$('#subtotal' + productId).attr('product-subtotal', subtotal).text(subtotal);		
 		reloadCart();
 	});
@@ -115,19 +120,10 @@ $(function(){
 	function reloadCart(){
 		var total = 0;
 		$('.total-relevant-td').map(function(index,element){			
-			(total += parseFloat($(this).children().attr('product-subtotal'))).toFixed(1);
-			$('#total').val(total).text('$ ' + total);
+			total += parseFloat($(this).children().attr('product-subtotal'));			
+			$('#total').val(total.toFixed(1)).text('$ ' + total.toFixed(1));
 		});
-		
-		populateCheckoutForm();
 	}
-	
-	function populateCheckoutForm(){
-		
-		console.log('populating checkout form');
-	}
-
-
 
 });
 </script>

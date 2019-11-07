@@ -82,45 +82,64 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------------------------------
 
 USE the_fish_shop_db;
+
 -- getProductsForHomePage() 
 DROP PROCEDURE IF EXISTS get_products_for_home_page;
 DELIMITER $$
-CREATE PROCEDURE get_products_for_home_page()
-BEGIN
-	select products.id, products.title, products.the_type, stock.price, stock.quantity
-	from products left join stock
-	on products.id=stock.product_id;
-END $$
+	CREATE PROCEDURE get_products_for_home_page()
+	BEGIN
+		select products.id, products.title, products.the_type, stock.price, stock.quantity
+		from products left join stock
+		on products.id=stock.product_id;
+	END $$
 DELIMITER ;
--- insertEmployeeWithDetails(args) 
+
+	-- insertEmployeeWithDetails(args) 
 DROP PROCEDURE IF EXISTS insertEmployeeWithDetails;
 DELIMITER $$
-CREATE PROCEDURE insertEmployeeWithDetails(
-	firstName varchar(60), lastName varchar(60), address varchar(60),
-    username varchar(60), password char(68), email varchar(254)
-)
-BEGIN
-	insert into user_info values
-		(null, firstName, lastName, address);
-	set @id = (select user_info.id from user_info where first_name=firstName and lastName=lastName limit 1);
-    insert into users values
-		(null, username, password, email, @id, 'ROLE_EMPLOYEE');
-END $$
+	CREATE PROCEDURE insertEmployeeWithDetails(
+		firstName varchar(60), lastName varchar(60), address varchar(60),
+		username varchar(60), password char(68), email varchar(254)
+	)
+	BEGIN
+		insert into user_info values
+			(null, firstName, lastName, address);
+		set @id = (select user_info.id from user_info where first_name=firstName and lastName=lastName limit 1);
+		insert into users values
+			(null, username, password, email, @id, 'ROLE_EMPLOYEE');
+	END $$
 DELIMITER ;
+
 -- updateEmployeeWithDetails(args)
 DROP PROCEDURE IF EXISTS updateEmployeeWithDetails;
 DELIMITER $$
-CREATE PROCEDURE updateEmployeeWithDetails(
-	theId int(11), firstName varchar(60), lastName varchar(60),
-    updatedAddress varchar(60), updatedUsername varchar(60), updatedEmail varchar(254)
-    )
-BEGIN
-	SET @udId = (SELECT user_info_id FROM users WHERE id = theId);
-	UPDATE user_info
-		SET first_name = firstName, last_name = lastName, address = updatedAddress
-	WHERE id = @udId;
-	UPDATE users
-		SET username = updatedUsername, email = updatedEmail
-	WHERE id=theId;
-END $$
+	CREATE PROCEDURE updateEmployeeWithDetails(
+		theId int(11), firstName varchar(60), lastName varchar(60),
+		updatedAddress varchar(60), updatedUsername varchar(60), updatedEmail varchar(254)
+		)
+	BEGIN
+		SET @udId = (SELECT user_info_id FROM users WHERE id = theId);
+		UPDATE user_info
+			SET first_name = firstName, last_name = lastName, address = updatedAddress
+		WHERE id = @udId;
+		UPDATE users
+			SET username = updatedUsername, email = updatedEmail
+		WHERE id=theId;
+	END $$
+DELIMITER ;
+
+-- insertUserWithDetails(args)
+DROP PROCEDURE IF EXISTS insertUserWithDetails;
+DELIMITER $$
+	CREATE PROCEDURE insertUserWithDetails(
+		firstName varchar(60), lastName varchar(60), address varchar(60),
+		username varchar(60), password char(68), email varchar(254), theRole enum('ROLE_ADMIN', 'ROLE_EMPLOYEE', 'ROLE_CUSTOMER')
+		)
+	BEGIN
+		insert into user_info values
+			(null, firstName, lastName, address);
+		set @id = (select user_info.id from user_info where first_name=firstName and lastName=lastName limit 1);
+		insert into users values
+			(null, username, password, email, @id, theRole);
+	END $$
 DELIMITER ;

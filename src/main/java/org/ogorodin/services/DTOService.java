@@ -34,9 +34,10 @@ public class DTOService implements IDtoService {
 		if (user.getInfo() != null) {
 			_userDto.setId(user.getId());
 			_userDto.setPassword(user.getPassword());
-			_userDto.setFirstName(user.getInfo().getLastName());
+			_userDto.setFirstName(user.getInfo().getFirstName());
 			_userDto.setLastName(user.getInfo().getLastName());
 			_userDto.setAddress(user.getInfo().getAddress());
+			_userDto.setEmail(user.getEmail());
 			_userDto.setRole(user.getRole());
 		}
 		return _userDto;
