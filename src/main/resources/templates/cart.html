@@ -57,7 +57,9 @@
 							</td>
 							<!-- subtotal -->
 							<td class="total-relevant-td">
-								<p th:id="subtotal + ${productID}" th:product-subtotal="${subtotal}" th:text="'$ ' + ${subtotal}" class="text-center">$ xxx</p>
+								<!-- th:text="${#numbers.formatDecimal(subtotal, 0, 'COMMA', 2, 'POINT')}" -->
+								<p th:id="subtotal + ${productID}" th:product-subtotal="${subtotal}" class="text-center"
+									th:text="'$ ' + ${#numbers.formatDecimal(subtotal, 0, 'COMMA', 2, 'POINT')}" >$ xxx</p>
 							</td>
 							<!-- delete product -->
 							<td>
@@ -71,9 +73,7 @@
 						</tr>
 					</tbody>
 					<tfoot>
-						<tr class="visible-xs">
-							<td class="text-center"><strong>Total 1.99</strong></td>
-						</tr>
+						
 						<tr>
 							<td>
 								<a th:href="@{/index}" class="btn btn-warning">

@@ -30,24 +30,19 @@ public class CartController {
 	@RequestMapping("{customerId}")
 	public ModelAndView showCart(@PathVariable String customerId) {
 
-//		System.err.println("Customer ID: " + customerId);
 		UserDTO userDto = _dtoService.getUserDTO();
 		CartDTO cartDto = _allCarts.get(Integer.parseInt(customerId));
 
 		HashMap<ProductDTO, Integer> cart = new HashMap<>();
 		ProductDTO productDto = new ProductDTO();
-
-//		System.out.println("CART DTO: \n" + cartDto + "\n>>>>>>>>>>>>>>>");
+		
 		if (cartDto != null) {
-			double total = 0;
 			for (int id : cartDto.getCart().keySet()) {
 				productDto = _dtoService.convertProductsToProductDto(id);
 				double subtotal = cartDto.getCart().get(productDto.getId()) * productDto.getPrice();
 				productDto.setSubtotal(subtotal);
-				total += subtotal;
 				cart.put(productDto, cartDto.getCart().get(productDto.getId()));
 			}
-			_modelAndView.addObject("total", total);
 		}
 
 		_modelAndView.addObject("userDTO", userDto);
@@ -60,8 +55,6 @@ public class CartController {
 	@GetMapping(value = "/addToCart", params = { "productId", "qtyInCart" })
 	public ModelAndView addToCart(@RequestParam int customerId, @RequestParam int productId,
 			@RequestParam int qtyInCart) {
-
-		// ProductDTO productDto = _dtoService.convertProductsToProductDto(productId);
 
 		if (_allCarts.isEmpty() || !_allCarts.containsKey(customerId)) {
 			CartDTO cartDTO = new CartDTO(customerId, productId, qtyInCart);
@@ -77,9 +70,6 @@ public class CartController {
 		if (userDTO != null) {
 			_modelAndView.addObject("userDTO", userDTO);
 		}
-
-//		System.out.println("CUSTOMER ID: " + customerId);
-//		System.out.println("ALL CARTS: \n >>>>>>>>>> " + _allCarts);
 
 		_modelAndView.setViewName("redirect:/");
 		return _modelAndView;
@@ -97,17 +87,12 @@ public class CartController {
 	@RequestMapping("/{customerId}/checkout")
 	public ModelAndView checkout(@ModelAttribute UserDTO userDto) {
 
-		System.err.println("IN CHECKOUT CONTROLLER METHOD");
-		System.err.println("USER DTO: >>>>>>>>>>>>>>>>\n" + userDto);
-
 		HashMap<ProductDTO, Integer> cart = new HashMap<>();
 		CartDTO cartDTO = _allCarts.get(userDto.getId());
 		for (int id : cartDTO.getCart().keySet()) {
 			ProductDTO productDTO = _dtoService.convertProductsToProductDto(id);
 			cart.put(productDTO, cartDTO.getCart().get(productDTO.getId()));
 		}
-
-		System.err.println("CART: \n" + cart);
 
 		_modelAndView.addObject("userDTO", userDto);
 		_modelAndView.addObject("cart", cart);
