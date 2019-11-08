@@ -63,7 +63,7 @@
 					</ol>
 				</div>
 				<div class="row">
-					<div th:each="product : ${organizedProducts.plantProducts}" class="col-md-4 text-center col-sm-6 col-xs-6">
+					<div th:each="product : ${organizedProducts._plantProducts}" class="col-md-4 text-center col-sm-6 col-xs-6">
 						<div class="thumbnail product-box" th:with="quantity = ${product.quantity}">
 							<img th:src="@{/photos/{imgName}(imgName=${product.title+'.jpg'})}"	alt="${product.title}" class="img-responsive" />
 						<div class="caption">
@@ -97,7 +97,7 @@
 						<li class="active">Other</li>
 					</ol>
 				</div>
-				<div th:each="product : ${organizedProducts.otherProducts}" class="col-md-4 text-center col-sm-6 col-xs-6">
+				<div th:each="product : ${organizedProducts._otherProducts}" class="col-md-4 text-center col-sm-6 col-xs-6">
 					<div class="thumbnail product-box" th:with="quantity = ${product.quantity}">
 						<img th:src="@{/photos/{imgName}(imgName=${product.title+'.jpg'})}"	alt="${product.title}" class="img-responsive" />
 						<div class="caption">
