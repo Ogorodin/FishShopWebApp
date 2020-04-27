@@ -1,7 +1,7 @@
 use the_fish_shop_db;
 
 -- all passwords have 123 added to the username(john - john123, admin - admin123)
-call insertUserWithDetails('John', 'Doe', 'Main st. 111, New York', 'john', '$2a$04$T83fgYSZH/Yf3KbpuiPixe.lAjUXqBreo.c6nyQ7TXkHXExIOt982', 'jonh123@foo.mail', 'ROLE_ADMIN');
+call insertUserWithDetails('John', 'Doe', 'Main st. 111, New York', 'admin', '$2a$10$L2DxVYNp0HePPmi3en7HIOWKDT1FOneIhPTQb8BV.N.GvV/YrNY3K', 'admin123@foo.mail', 'ROLE_ADMIN');
 call insertUserWithDetails('Jane', 'Doe', 'Elk st. 222, Anchorage', 'jane', '$2a$04$qUamQqiPmXYrQE5GfYC9cOs7/C3Umc3/QvjdY9R1pDuhe3Q7LT4MW', 'jane123@foo.mail', 'ROLE_EMPLOYEE');
 call insertUserWithDetails('Jack', 'Brown', 'Long st.333, Denver', 'jack', '$2a$04$ormy3tcvLZLh37ALquIDluLHjWfW4U851WFLwR8YjIJFAg9ZcKf6K', 'jack123@foo.mail', 'ROLE_EMPLOYEE');
 call insertUserWithDetails('Jill', 'Black', 'Short st. 444 89, Los Angeles', 'jill', '$2a$04$atk5Xn1Pw7sW6OMar1k5muzW7lYDsNF/O8UTiB7feD2FzkQeiCFse', 'jill123@foo.mail', 'ROLE_EMPLOYEE');

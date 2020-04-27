@@ -36,13 +36,13 @@ public class HomeController {
 
 		// pagination part // UNDER CONSTRUCTION // got stuck
 		PagedListHolder<ProductForHomeView> fishPagedList = new PagedListHolder<>(
-				(List<ProductForHomeView>) organizedProducts.fishProducts);
+				(List<ProductForHomeView>) organizedProducts._fishProducts);
 		fishPagedList.setPageSize(3);
 		PagedListHolder<ProductForHomeView> plantsPagedList = new PagedListHolder<>(
-				(List<ProductForHomeView>) organizedProducts.plantProducts);
+				(List<ProductForHomeView>) organizedProducts._plantProducts);
 		plantsPagedList.setPageSize(3);
 		PagedListHolder<ProductForHomeView> otherPagedList = new PagedListHolder<>(
-				(List<ProductForHomeView>) organizedProducts.otherProducts);
+				(List<ProductForHomeView>) organizedProducts._otherProducts);
 		otherPagedList.setPageSize(3);
 		_modelAndView.addObject("maxFishes", fishPagedList.getPageCount());
 		_modelAndView.addObject("maxPlants", plantsPagedList.getPageCount());

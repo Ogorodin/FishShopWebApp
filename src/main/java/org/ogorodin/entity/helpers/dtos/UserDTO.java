@@ -12,6 +12,7 @@ public class UserDTO {
 	private String _firstName;
 	private String _lastName;
 	private String _address;
+	private String _email;
 	private ERole _role;
 	private HashMap<Integer, Integer> _cart = new HashMap<>();
 
@@ -63,6 +64,14 @@ public class UserDTO {
 		this._address = address;
 	}
 
+	public String getEmail() {
+		return _email;
+	}
+
+	public void setEmail(String email) {
+		this._email = email;
+	}
+
 	public ERole getRole() {
 		return _role;
 	}
@@ -82,10 +91,8 @@ public class UserDTO {
 	@Override
 	public String toString() {
 		return "UserDTO [_id=" + _id + ", _username=" + _username + ", _password=" + _password + ", _firstName="
-				+ _firstName + ", _lastName=" + _lastName + ", _address=" + _address + ", _role=" + _role + ", _cart="
-				+ _cart + "]";
+				+ _firstName + ", _lastName=" + _lastName + ", _address=" + _address + ", _email=" + _email + ", _role="
+				+ _role + ", _cart=" + _cart + "]";
 	}
-	
-	
 
 }

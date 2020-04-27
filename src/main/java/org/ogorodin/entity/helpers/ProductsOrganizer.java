@@ -14,80 +14,90 @@ public class ProductsOrganizer {
 
 	private List<ProductForHomeView> _productsForHomeView = new ArrayList<>();
 
-	public List<ProductForHomeView> fishProducts;
-	public List<ProductForHomeView> plantProducts;
-	public List<ProductForHomeView> otherProducts;
+	// trying to tidy up code on index.html
+	private List<List<ProductForHomeView>> _listOfProducts = new ArrayList<>();
 
-	public int numOfFreshWaterFish;
-	public int numOfSaltWaterFish;
-	public int numOfPondFish;
-	public int numOfCrabs;
+	public List<ProductForHomeView> _fishProducts;
+	public List<ProductForHomeView> _plantProducts;
+	public List<ProductForHomeView> _otherProducts;
 
-	public int numOfFreshWaterPlants;
-	public int numOfPondPlants;
+	public int _numOfFreshWaterFish;
+	public int _numOfSaltWaterFish;
+	public int _numOfPondFish;
+	public int _numOfCrabs;
 
-	public int numOfTanks;
-	public int numOfCo2Items;
-	public int numOfFoodItems;
-	public int numOfFilterItems;
+	public int _numOfFreshWaterPlants;
+	public int _numOfPondPlants;
+
+	public int _numOfTanks;
+	public int _numOfCo2Items;
+	public int _numOfFoodItems;
+	public int _numOfFilterItems;
 
 	public ProductsOrganizer(List<ProductForHomeView> products) {
 		this._productsForHomeView = products;
-		fishProducts = new ArrayList<>();
-		plantProducts = new ArrayList<>();
-		otherProducts = new ArrayList<>();
+		_fishProducts = new ArrayList<>();
+		_plantProducts = new ArrayList<>();
+		_otherProducts = new ArrayList<>();
 		organizeProductsInCategories();
 	}
 
-	public List<ProductForHomeView> get_productsForHomeView() {
+	public List<ProductForHomeView> getProductsForHomeView() {
 		return _productsForHomeView;
+	}	
+
+	public List<List<ProductForHomeView>> getListOfProducts() {
+		return _listOfProducts;
 	}
 
 	public void organizeProductsInCategories() {
 		for (ProductForHomeView product : _productsForHomeView) {
 			switch (product.getProductType()) {
 			case FW_FISH:
-				fishProducts.add(product);
-				numOfFreshWaterFish += 1;
+				_fishProducts.add(product);
+				_numOfFreshWaterFish += 1;
 				break;
 			case SW_FISH:
-				fishProducts.add(product);
-				numOfSaltWaterFish += 1;
+				_fishProducts.add(product);
+				_numOfSaltWaterFish += 1;
 				break;
 			case CRAB_FISH:
-				fishProducts.add(product);
-				numOfCrabs += 1;
+				_fishProducts.add(product);
+				_numOfCrabs += 1;
 				break;
 			case P_FISH:
-				fishProducts.add(product);
-				numOfPondFish += 1;
+				_fishProducts.add(product);
+				_numOfPondFish += 1;
 				break;
 			case FW_PLANT:
-				plantProducts.add(product);
-				numOfFreshWaterPlants += 1;
+				_plantProducts.add(product);
+				_numOfFreshWaterPlants += 1;
 				break;
 			case P_PLANT:
-				plantProducts.add(product);
-				numOfPondPlants += 1;
+				_plantProducts.add(product);
+				_numOfPondPlants += 1;
 				break;
 			case TANK:
-				otherProducts.add(product);
-				numOfTanks += 1;
+				_otherProducts.add(product);
+				_numOfTanks += 1;
 				break;
 			case FILTER:
-				otherProducts.add(product);
-				numOfFilterItems += 1;
+				_otherProducts.add(product);
+				_numOfFilterItems += 1;
 				break;
 			case CO2:
-				otherProducts.add(product);
-				numOfCo2Items += 1;
+				_otherProducts.add(product);
+				_numOfCo2Items += 1;
 				break;
 			case FOOD:
-				otherProducts.add(product);
-				numOfFoodItems += 1;
+				_otherProducts.add(product);
+				_numOfFoodItems += 1;
 				break;
 			}
 		}
+		this._listOfProducts.add(this._fishProducts);
+		this._listOfProducts.add(this._plantProducts);
+		this._listOfProducts.add(this._otherProducts);
 	}
 
 	// PAGINATION // NOT DONE // RESEARCH
