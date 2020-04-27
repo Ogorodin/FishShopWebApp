@@ -14,6 +14,9 @@ public class ProductsOrganizer {
 
 	private List<ProductForHomeView> _productsForHomeView = new ArrayList<>();
 
+	// trying to tidy up code on index.html
+	private List<List<ProductForHomeView>> _listOfProducts = new ArrayList<>();
+
 	public List<ProductForHomeView> _fishProducts;
 	public List<ProductForHomeView> _plantProducts;
 	public List<ProductForHomeView> _otherProducts;
@@ -39,8 +42,12 @@ public class ProductsOrganizer {
 		organizeProductsInCategories();
 	}
 
-	public List<ProductForHomeView> get_productsForHomeView() {
+	public List<ProductForHomeView> getProductsForHomeView() {
 		return _productsForHomeView;
+	}	
+
+	public List<List<ProductForHomeView>> getListOfProducts() {
+		return _listOfProducts;
 	}
 
 	public void organizeProductsInCategories() {
@@ -88,6 +95,9 @@ public class ProductsOrganizer {
 				break;
 			}
 		}
+		this._listOfProducts.add(this._fishProducts);
+		this._listOfProducts.add(this._plantProducts);
+		this._listOfProducts.add(this._otherProducts);
 	}
 
 	// PAGINATION // NOT DONE // RESEARCH

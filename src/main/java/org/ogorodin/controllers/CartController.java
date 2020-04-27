@@ -35,7 +35,7 @@ public class CartController {
 
 		HashMap<ProductDTO, Integer> cart = new HashMap<>();
 		ProductDTO productDto = new ProductDTO();
-		
+
 		if (cartDto != null) {
 			for (int id : cartDto.getCart().keySet()) {
 				productDto = _dtoService.convertProductsToProductDto(id);
@@ -55,6 +55,8 @@ public class CartController {
 	@GetMapping(value = "/addToCart", params = { "productId", "qtyInCart" })
 	public ModelAndView addToCart(@RequestParam int customerId, @RequestParam int productId,
 			@RequestParam int qtyInCart) {
+
+		System.out.println("Customer ID: " + customerId);
 
 		if (_allCarts.isEmpty() || !_allCarts.containsKey(customerId)) {
 			CartDTO cartDTO = new CartDTO(customerId, productId, qtyInCart);
